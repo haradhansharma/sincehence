@@ -1,0 +1,24 @@
+<h4>{{ sizechart_title }}</h4>
+{{ sizechart_description }}
+{% if sizechart_rows %}
+<div class="table-responsive">
+	<table class="table table-bordered table-hover">
+		<tbody>
+			{% for key, sizechart_column in sizechart_rows %}
+			<tr>
+				{% set i= 1%}
+				
+				{% for sizechart_value in sizechart_column %}
+				{% if key == '0' %}
+				<th class="{{ sizechart_column|length == i ? 'text-right' : 'text-left'}} ">{{ sizechart_value.value }}</th>
+				{% else %}
+				<td class="{{ sizechart_column|length == i ? 'text-right' : 'text-left'}}">{{ sizechart_value.value }}</td>
+				{% endif %}
+				{% endfor %}
+				{% set i= i + 1 %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endif %}

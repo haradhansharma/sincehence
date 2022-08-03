@@ -1,0 +1,42 @@
+<!-- Trigger the modal with a button -->
+<div class="buttons">
+	<button type="button" class="btn btn-default btn-block" data-toggle="modal" data-target="#SizeChartModal">{{ sizechart_title }}
+	</button>
+</div>
+<!-- Modal -->
+<div id="SizeChartModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{ sizechart_title }}</h4>
+      </div>
+      <div class="modal-body">
+				{{ sizechart_description }}
+        <div class="table-responsive">
+					<table class="table table-bordered table-hover">
+						<tbody>
+							{% for key, sizechart_column in sizechart_rows %}
+							<tr>
+								{% set i = 0 %}
+								{% for sizechart_value in sizechart_column %}
+								{% if key == '0' %}
+								<th class="{{ sizechart_column|length == i  ? 'text-right' : 'text-left' }}">{{ sizechart_value.value }}</th>
+								{% else %}
+								<td class="{{ sizechart_column|length == i  ? 'text-right' : 'text-left' }}">{{ sizechart_value.value }}</td>
+								{% endif %}
+								{% set i = i + 1 %}
+								{% endfor %}
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+    </div>
+
+  </div>
+</div>
+<style>#SizeChartModal{background:transparent !important;}</style>

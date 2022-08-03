@@ -1,0 +1,195 @@
+<div class="row">
+  <div id="filter-report" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-filter"></i> {{ text_filter }}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="control-label" for="input-date-start">{{ entry_date_start }}</label>
+          <div class="input-group date">
+            <input type="text" name="filter_date_start" value="{{ filter_date_start }}" placeholder="{{ entry_date_start }}" data-date-format="YYYY-MM-DD" id="input-date-start" class="form-control" />
+            <span class="input-group-btn">
+            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+            </span></div>
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="input-customer">{{ entry_customer }}</label>
+          <input type="text" name="filter_customer" value="{{ filter_customer }}" placeholder="{{ entry_customer }}" id="input-customer" class="form-control" />
+        </div>
+        <div class="form-group">
+          <label class="control-label" for="input-date-end">{{ entry_date_end }}</label>
+          <div class="input-group date">
+            <input type="text" name="filter_date_end" value="{{ filter_date_end }}" placeholder="{{ entry_date_end }}" data-date-format="YYYY-MM-DD" id="input-date-end" class="form-control" />
+            <span class="input-group-btn">
+            <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+            </span></div>
+        </div>
+  
+        <div class="form-group text-right">
+          <button type="button" id="button-filter" class="btn btn-default"><i class="fa fa-filter"></i> {{ button_filter }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-9 col-md-pull-3 col-sm-12">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-bar-chart"></i> {{ heading_title }}</h3>
+      </div>
+      <div class="panel-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <td class="text-left">{{ column_customer }}</td>
+                <td class="text-left">{{ column_email }}</td>
+                <td class="text-left">{{ column_customer_group }}</td>
+                <td class="text-left">{{ column_status }}</td>
+                <td class="text-right">{{ column_carts }}</td>
+                <td class="text-right">{{ column_products }}</td>
+                
+                <td class="text-right">{{ column_action }}</td>
+              </tr>
+            </thead>
+            <tbody>
+            
+            {% if customers %}
+            {% for customer in customers %}
+            <tr>
+              <td class="text-left">{{ customer.customer }}</td>
+              <td class="text-left">{{ customer.email }}</td>
+              <td class="text-left">{{ customer.customer_group }}</td>
+              <td class="text-left">{{ customer.status }}</td>
+              <td class="text-right">{{ customer.carts }}</td>
+              <td class="text-right">{{ customer.products }}</td>
+              
+              <td class="text-right">
+                  
+                  {#<a href="{{ customer.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>#}
+                           {#////sharma#}
+             
+             {#<button value="{{ customer.customer_id }}" type="button" name="email" form="form-order" id="button-send" data-loading-text="{{ text_loading }}" data-toggle="tooltip" title="{{ button_send }}" class="btn btn-primary" onclick="send('index.php?route=extension/report/cart_report/send&customer_id={{ customer.customer_id }}&user_token={{ user_token }}');"> <i class="fa fa-envelope"></i></button>#}
+             
+             
+             {#////sharma#}
+
+              </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td class="text-center" colspan="8">{{ text_no_results }}</td>
+            </tr>
+            {% endif %}
+            </tbody>
+            
+          </table>
+        </div>
+        <div class="row">
+          <div class="col-sm-6 text-left">{{ pagination }}</div>
+          <div class="col-sm-6 text-right">{{ results }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript"><!--
+$('#button-filter').on('click', function() {
+  var url = '';
+  
+  var filter_customer = $('input[name=\'filter_customer\']').val();
+  
+  if (filter_customer) {
+    url += '&filter_customer=' + encodeURIComponent(filter_customer);
+  }
+  
+  var filter_date_start = $('input[name=\'filter_date_start\']').val();
+  
+  if (filter_date_start) {
+    url += '&filter_date_start=' + encodeURIComponent(filter_date_start);
+  }
+  
+  var filter_date_end = $('input[name=\'filter_date_end\']').val();
+  
+  if (filter_date_end) {
+    url += '&filter_date_end=' + encodeURIComponent(filter_date_end);
+  }
+  
+  var filter_order_status_id = $('select[name=\'filter_order_status_id\']').val();
+  
+  if (filter_order_status_id != 0) {
+    url += '&filter_order_status_id=' + encodeURIComponent(filter_order_status_id);
+  } 
+  
+  location = 'index.php?route=report/report&user_token={{ user_token }}&code=cart_report' + url;
+});
+//--></script> 
+<script type="text/javascript"><!--
+$('.date').datetimepicker({
+  language: '{{ datepicker }}',
+  pickTime: false
+});
+//--></script> 
+<script type="text/javascript"><!--
+$('input[name=\'filter_customer\']').autocomplete({
+  'source': function(request, response) {
+    $.ajax({
+      url: 'index.php?route=customer/customer/autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
+      dataType: 'json',
+      success: function(json) {
+        response($.map(json, function(item) {
+          return {
+            label: item['name'],
+            value: item['customer_id']
+          }
+        }));
+      }
+    });
+  },
+  'select': function(item) {
+    $('input[name=\'filter_customer\']').val(item['label']);
+  }
+});
+//--></script>
+ <script type="text/javascript">
+            <!--
+      var sending = '{{ text_sending }}';
+
+function send(url) {
+    $.ajax({
+        url: url,
+        type: 'post',
+        data: $('#email name'),
+        dataType: 'json',
+        beforeSend: function() { 
+       $('html, body').animate({ scrollTop: 0 }, '100');
+         $('#dialog_message').append('<div style="color: #848484; width: 100%;  background-color: #ddffcc; text-align: center; padding: 5px;">' + sending + '</div>');
+           $('.alert').remove();
+           //$('#dialog_message').animate({width: 'toggle'});
+       //$('#dialog_message').css({height: '16px'})
+        },
+        complete: function() {
+            $('#button-send').button('submit');
+          },
+        success: function(json) {
+            $('.alert').remove();
+      $('#dialog_message').empty();
+      if (json['success']) {
+        //$('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i>  ' + json['success'] + '</div>');
+        $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i>  ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+      } 
+      
+      if (json['error']) {
+        $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+      }
+      
+        
+    },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+
+}
+//--></script>

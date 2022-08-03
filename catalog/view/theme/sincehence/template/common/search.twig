@@ -1,0 +1,32 @@
+{# <div id="search" class="input-group">
+  <input type="text" name="search" value="{{ search }}" placeholder="{{ text_search }}" class="form-control input-lg" />
+  <span class="input-group-btn">
+    <button type="button" class="btn btn-default btn-lg"><i class="fa fa-search"></i></button>
+  </span>
+</div>
+#}
+
+<div id="myOverlay" class="overlay">
+  <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
+  <div class="overlay-content">
+    <div id="search" class="input-group">
+  <input type="text" name="search" value="{{ search }}" placeholder="{{ text_search }}" class="form-control input-lg" />
+  <span class="input-group-btn">
+    <button type="button" class="btn btn-default btn-lg"><i class="fa fa-search"></i></button>
+  </span>
+</div>
+  </div>
+</div>
+
+
+<button type="button"  onclick="openSearch()"><a class="frnt-btn"><i class="fa fa-search"></i></a></button>
+
+<script>
+function openSearch() {
+  document.getElementById("myOverlay").style.display = "block";
+}
+
+function closeSearch() {
+  document.getElementById("myOverlay").style.display = "none";
+}
+</script>

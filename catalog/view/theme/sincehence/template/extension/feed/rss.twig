@@ -1,0 +1,46 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+
+
+
+<channel>
+    {{atoml}}
+<title>
+<![CDATA[ {{site_name}} ]]>
+</title>
+<description>
+<![CDATA[ {{meta_description}} ]]>
+</description>
+<link>{{store_url}}</link>
+<generator> {{store_url}} </generator>
+<lastBuildDate>{{ last_build_date }}</lastBuildDate>
+{% for item in items %}
+
+<item>
+
+<title>
+<![CDATA[ {{ item.title|raw }} ]]>
+</title>
+<description>
+<![CDATA[ {{item.description|raw}} ]]>
+</description>
+<link>{{ item.link }}</link>
+<brand>{{ item.brand }}</brand>
+<condition>{{ item.condition }}</condition>
+<image_link>{{ item.enclosure }}</image_link>
+<guid isPermaLink="false">{{ item.guid }}</guid>
+<price>{{ item.price }}</price>
+<availability>{{ item.availability }}</availability>
+<pubDate>{{ item.pubDate }}</pubDate>
+<enclosure url="{{ item.enclosure }}" length="2000000"  type="image/png"/>
+
+
+
+</item>
+{% endfor %}
+</channel>
+
+
+
+</rss>
+
+

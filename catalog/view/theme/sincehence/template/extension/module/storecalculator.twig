@@ -1,0 +1,259 @@
+{% if current_product_id == spi or home == curi %}
+<div class = "formback">
+	<center>
+		<h3>{{ heading_title }}</h3>
+	</center>
+	<div class="row">
+		<form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal">
+			<fieldset>
+
+				{% set class = 'col-sm-4 col-md-3 ' %}
+				{% set class2 = 'fback' %}
+				{% set class3 = 'cent' %}
+				{% set class4 = 'profit' %}
+
+				<div class="form-group {{class}} required">
+					<div class="{{class2}}">
+						<div class="{{class3}}">
+							<label class="col-sm-12 control-label" for="input-tagetarea">{{ entry_tagetarea }}</label>
+							<div class="col-sm-12">
+								<input type="text" name="tagetarea" value="{{ tagetarea }}" placeholder="{{ entry_tagetarea }}" id="input-tagetarea" class="form-control" />
+								{% if error_tagetarea %}
+								<div class="text-danger">{{ error_tagetarea }}</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group {{class}} required">
+					<div class="{{class2}}">
+						<div class="{{class3}}">
+							<label class="col-sm-12 control-label" for="input-product_persqft">{{ entry_product_persqft }}</label>
+							<div class="col-sm-12">
+								<input type="text" name="product_persqft" value="{{ product_persqft }}" placeholder="{{ entry_product_persqft }}" id="input-product_persqft" class="form-control" />
+								{% if error_product_persqft %}
+								<div class="text-danger">{{ error_product_persqft }}</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group {{class}} required">
+					<div class="{{class2}}">
+						<div class="{{class3}}">
+							<label class="col-sm-12 control-label" for="input-target_grandopening">{{ entry_target_grandopening }}</label>
+							<div class="col-sm-12">
+								<select name="target_grandopening" id="input-target_grandopening" class="form-control">
+									{% for tgt_go in target_grandopening %}
+									{% if tgt_go.option_value_id == option_value_id %}
+									<option value="{{ tgt_go.option_value_id }}" selected="selected">{{ tgt_go.name }}</option>
+									{% else %} 
+									<option value="{{ tgt_go.option_value_id }}">{{ tgt_go.name }}</option>
+									{% endif %}
+									{% endfor %}
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group {{class}} required">
+					<div class="{{class2}}">
+						<div class="{{class3}}">
+							<label class="col-sm-12 control-label" for="input-shop_advanced">{{ entry_shop_advanced }}</label>
+							<div class="col-sm-12">
+								<input type="text" name="shop_advanced" value="{{ shop_advanced }}" placeholder="{{ entry_shop_advanced }}" id="input-shop_advanced" class="form-control" />
+								{% if error_shop_advanced %}
+								<div class="text-danger">{{ error_shop_advanced }}</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group {{class}} required">
+					<div class="{{class2}}">
+						<div class="{{class3}}">
+							<label class="col-sm-12 control-label" for="input-decoration_cost">{{ entry_decoration_cost }}</label>
+							<div class="col-sm-12">
+								<input type="text" name="decoration_cost" value="{{ decoration_cost }}" placeholder="{{ entry_decoration_cost }}" id="input-decoration_cost" class="form-control" />
+								{% if error_decoration_cost %}
+								<div class="text-danger">{{ error_decoration_cost }}</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group {{class}} required">
+					<div class="{{class2}}">
+						<div class="{{class3}}">
+							<label class="col-sm-12 control-label" for="input-other_charge">{{ entry_other_charge }}</label>
+							<div class="col-sm-12">
+								<input type="text" name="other_charge" value="{{ other_charge }}" placeholder="{{ entry_other_charge }}" id="input-other_charge" class="form-control" />
+								{% if error_other_charge %}
+								<div class="text-danger">{{ error_other_charge }}</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group {{class}} required">
+					<div class="{{class2}}">
+						<div class="{{class3}}">
+							<label class="col-sm-12 control-label" for="input-security_deposite">{{ entry_security_deposite }}</label>
+							<div class="col-sm-12">
+								<input type="text" name="security_deposite" value="{{ security_deposite }}" placeholder="{{ entry_security_deposite }}" id="input-security_deposite" class="form-control" />
+								{% if error_security_deposite %}
+								<div class="text-danger">{{ error_security_deposite }}</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group {{class}} required">
+					<div class="{{class2}}">
+						<div class="{{class3}}">
+							<label class="col-sm-12 control-label" for="input-franchise_fee">{{ entry_franchise_fee }}</label>
+							<div class="col-sm-12">
+								<input type="text" name="franchise_fee" value="{{ franchise_fee }}" placeholder="{{ entry_franchise_fee }}" id="input-franchise_fee" class="form-control" />
+								{% if error_franchise_fee %}
+								<div class="text-danger">{{ error_franchise_fee }}</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group {{class}} required">
+					<div class="{{class2}}">
+						<div class="{{class3}}">
+							<label class="col-sm-12 control-label" for="input-your_name">{{ entry_your_name }}</label>
+							<div class="col-sm-12">
+								<input type="text" name="your_name" value="{{ your_name }}" placeholder="{{ entry_your_name }}" id="input-your_name" class="form-control" />
+								{% if error_your_name %}
+								<div class="text-danger">{{ error_your_name }}</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group {{class}} required">
+					<div class="{{class2}}">
+						<div class="{{class3}}">
+							<label class="col-sm-12 control-label" for="input-your_email">{{ entry_your_email }}</label>
+							<div class="col-sm-12">
+								<input type="text" name="your_email" value="{{ your_email }}" placeholder="{{ entry_your_email }}" id="input-your_email" class="form-control" />
+								{% if error_your_email %}
+								<div class="text-danger">{{ error_your_email }}</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group {{class}} required">
+					<div class="{{class2}}">
+						<div class="{{class3}}">
+							<label class="col-sm-12 control-label" for="input-mobile">{{ entry_mobile }}</label>
+							<div class="col-sm-12">
+								<input type="text" name="mobile" value="{{ mobile }}" placeholder="{{ entry_mobile }}" id="input-mobile" class="form-control" />
+								{% if error_mobile %}
+								<div class="text-danger">{{ error_mobile }}</div>
+								{% endif %}
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form-group {{class}}">
+					<input class="{{class2}}" id="calbtn" type="submit" value="{{ button_submit }}" />
+				</div>
+			</fieldset>
+		</form>
+		<div class="col-sm-12">
+			{% if err == 0 %}
+			<div class="alert text-orange">{{ mms }} </div> 
+			{% endif %}         
+		</div>
+
+		{% if err == 1 and primary_product_cost >= default_primary_product_cost and current_product_id == spi %}
+		<div class="col-sm-12 {{class2}}">
+			<table  class="table table-hover">
+				<thead>
+					<tr>
+						<td class="text-right" style="width:50%">
+							<h3>{{label_legend}}</h3>
+						</td>
+						<td style="width:50%">
+							<h3>{{label_result}}</h3>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="text-right" style="width:50%; ">{{label_ppc}}</td>
+						<td style="width:50%">{{primary_product_cost}}</td>
+					</tr>
+					<tr>
+						<td class="text-right" style="width:50%">{{label_pdo}}</td>
+						<td style="width:50%">{{payable_during_order}}</td>
+					</tr>
+					<tr>
+						<td class="text-right" style="width:50%">{{label_pbd}}</td>
+						<td style="width:50%">{{payable_before_delivery}}</td>
+					</tr>
+					<tr>
+						<td class="text-right" style="width:50%">{{label_pa}}</td>
+						<td style="width:50%">
+							{% for ardate in product_arrivals %}
+							{{product_arrivals.product_arraival}}
+							{% endfor %}
+						</td>
+					</tr>
+					<tr>
+						<td class="text-right" style="width:50%">{{label_sic}}</td>
+						<td style="width:50%">{{shop_instal_cost}}</td>
+					</tr>
+					<tr>
+						<td class="text-right" style="width:50%">{{label_security}}</td>
+						<td style="width:50%">{{security}}</td>
+					</tr>
+					<tr>
+						<td class="text-right" style="width:50%; ">
+							<h3>{{label_tc}}</h3>
+						</td>
+						<td style="width:50%;">
+							<h3>{{total_capital}}</h3>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-sm-12 {{class4}}">
+			<table  class="table table-hover">
+				<thead>
+					<tr>
+						<td class="text-right" style="width:50%">
+							<h3>{{label_legend}}</h3>
+						</td>
+						<td style="width:50%">
+							<h3>{{label_result_profit}}</h3>
+						</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="text-right" style="width:50%; ">{{label_avgsale}}</td>
+						<td style="width:50%">{{avg_sale}}</td>
+					</tr>
+					<tr>
+						<td class="text-right" style="width:50%">{{label_tentative_profit}}</td>
+						<td style="width:50%">{{t_profit}}</td>
+					</tr>
+				</tbody>
+			</table>  
+		</div>
+		<div>
+			<center><h5>{{reqtocart}}</h5></center>
+		</div>
+		{% else %}
+		<center><h5>{{instruct}}</h5></center>
+		{% endif %}
+	</div>
+</div>
+{% endif %}

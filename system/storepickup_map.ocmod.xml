@@ -1,0 +1,55 @@
+<modification>
+
+	<name>StorePickup Map</name>
+	<version>1.5</version>
+	<author>Adikon.eu</author>
+	<code>storepickup_map_by_adikon</code>
+
+	<file path="catalog/controller/*/checkout.php" error="skip">
+		<operation error="skip">
+			<search><![CDATA[function index]]></search>
+			<add position="after"><![CDATA[
+			$this->load->config('storepickup_map');
+			$this->load->model($this->config->get('spm_module_path'));
+
+			$spm_module_model = $this->{$this->config->get('spm_module_model')};
+
+			$data['storepickup_map'] = $spm_module_model->compatibility()->getChild($this->config->get('spm_module_path'), array());
+			]]></add>
+		</operation>
+	</file>
+
+	<file path="catalog/view/theme/*/template/*/checkout.twig" error="skip">
+		<operation error="skip">
+			<search><![CDATA[{{ footer }}]]></search>
+			<add position="before"><![CDATA[
+			{{ storepickup_map }}
+			]]></add>
+		</operation>
+	</file>
+
+	<file path="catalog/controller/mail/order.php" error="skip">
+		<operation error="skip">
+			<search index="0"><![CDATA[$mail->send();]]></search>
+			<add position="after"><![CDATA[
+			$this->load->config('storepickup_map');
+
+			if ($this->config->get($this->config->get('spm_module_name') . '_status') && $this->config->get($this->config->get('spm_module_name') . '_notify_status')) {
+				if (isset($order_info['shipping_code']) && preg_match('#^storepickup_map#i', $order_info['shipping_code'])) {
+					$storepickup_id = str_replace('storepickup_map.storepickup_map_', '', $order_info['shipping_code']);
+
+					$storepickup_query = $this->db->query("SELECT email FROM " . DB_PREFIX . "spm_store WHERE status = '1' AND storepickup_id = '" . (int)$storepickup_id . "'");
+
+					if ($storepickup_query->num_rows) {
+						if ($storepickup_query->row['email'] && filter_var($storepickup_query->row['email'], FILTER_VALIDATE_EMAIL)) {
+							$mail->setTo($storepickup_query->row['email']);
+							$mail->send();
+						}
+					}
+				}
+			}
+			]]></add>
+		</operation>
+	</file>
+
+</modification>

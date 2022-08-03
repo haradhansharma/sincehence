@@ -1,0 +1,96 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-module" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a>
+        
+        </div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">×</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_edit }}</h3>
+      </div>
+      <div class="panel-body">
+
+
+           <div class="table-responsive">
+           <h1>History</h1>
+           <table class="table table-bordered">
+    <thead>
+      <tr>
+        <td class="text-left">Itd Id</td>
+        <td class="text-left">Itd colection days</td>
+        <td class="text-left">Itd delivery days</td>
+        <td class="text-left">Colection slot date</td>
+        <td class="text-left">date add</td>
+        <td class="text-left">Action</td>
+      </tr>
+    </thead>
+    <tbody>
+        {% for slot in date_slot %}
+       
+      <tr>
+        <td class="text-left">{{ slot.itd_id}}</td>
+        <td class="text-left">{{ slot.itd_collectiondays }}</td>
+        <td class="text-left">{{ slot.itd_deliverydays }}</td>
+        <td class="text-left">{{ slot.itd_collection_date_slot1 }}</td>
+        <td class="text-left">{{ slot.date_added }}</td>
+        <td class="text-left"><a href="{{ slot.edit  }}"  class="btn btn-danger">Edit</a></td>
+      </tr>
+       {% endfor   %}
+ 
+    </tbody>
+  </table>
+</div>
+
+
+<h1>Set slot</h1>
+
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal">
+         
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-name">Input Dalivery days</label>
+            <div class="col-sm-10">
+              <input type="number" name="itd_deliverydays" value="15"  id="input-name" class="form-control" />
+            
+            </div>
+          </div>  
+     <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-name">Input Order colection days</label>
+            <div class="col-sm-10">
+              <input type="number" name="itd_collectiondays" value="15"  id="input-name" class="form-control" />
+            
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="input-name">Input colection date slot</label>
+            <div class="col-sm-10">
+              <input type="date" name="icd_slot1"  id="input-name" class="form-control" />
+            
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+  <script type="text/javascript"><!--
+$('#language a:first').tab('show');
+//--></script></div>
+{{ footer }}

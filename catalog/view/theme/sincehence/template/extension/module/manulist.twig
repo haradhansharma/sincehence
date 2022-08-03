@@ -1,0 +1,30 @@
+<style>
+.mname {
+    text-align: center;
+    padding: 5px 0;
+    background: lightgrey;
+}
+.allmanu {
+    display: block;
+    width: 100%;
+    padding: 0 15px 15px 0;    
+}
+</style>
+  <h3>{{ heading_title }}</h3>
+  <div class ="row">
+    {% for manufacturer in manufacturers %}
+    <div class="product-layout col-lg-3 col-md-3 col-sm-6 col-xs-12">
+    <div class="product-thumb transition">
+   
+        <a href="{{ manufacturer.href }}"><img class ="img-responsive" src="{{ manufacturer.image }}" alt="{{ manufacturer.name }}" title="{{ manufacturer.name }}"/></a>      
+     
+        <a href="{{ manufacturer.href }}"><div class ="mname">{{ manufacturer.name }}</div></a>  
+    
+  </div>
+  </div>
+  {% endfor %} 
+  <div class="col-sm-12 allmanu">
+  <a href="{{manulink}}" class = "pull-right ">{{all_manu}}</a>
+  </div>
+
+  </div>

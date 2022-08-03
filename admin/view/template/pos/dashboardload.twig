@@ -1,0 +1,16 @@
+<div id="dash">
+	<div class="">
+		<div class="col-md-12 col-sm-12 col-xs-12 padd0 dashbox">
+			<ul class="list-inline box">
+				{% for settings in setting_dashboards %}
+				<li class="active" style="background:{{ settings.bg_color }}">
+					<span style="color:{{ settings.text_color }}">
+						<i class="fa {{ settings.icon }}" aria-hidden="true"></i> {{ settings.name }}
+					</span>
+					<p>{{ settings.totalamount }}</p>
+				</li>
+				{% endfor %}
+			</ul>	
+		</div>
+	</div>
+</div>

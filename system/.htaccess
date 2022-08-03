@@ -1,0 +1,8 @@
+<Files *.*>
+Order Deny,Allow
+Deny from all
+</Files>
+<Files ~ "\.(js|css|eot|svg|ttf|woff)$">
+Order Allow,Deny
+Allow from all
+</Files>

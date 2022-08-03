@@ -1,0 +1,41 @@
+<h4 class="heading-title">{{ sizechart_title }}</h4>
+{{ sizechart_description }}
+{% if sizechart_rows %}
+<div class="table-responsive">
+	<table class="table table-bordered table-hover list">
+		<thead></thead>
+		<tbody>
+			{% for key, sizechart_column in sizechart_rows %}
+			<tr>
+				{% set i= 1%}
+
+				{% for sizechart_value in sizechart_column %}
+				{% if key == '0' %}
+				<th class="{{ sizechart_column|length == i ? 'text-right' : 'text-left'}} ">{{ sizechart_value.value }}</th>
+				{% else %}
+				<td class="{{ sizechart_column|length == i ? 'text-right' : 'text-left'}}">{{ sizechart_value.value }}</td>
+				{% endif %}
+				{% endfor %}
+				{% set i= i + 1 %}
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endif %}
+<style>
+.product-tabs .list{
+	border-top:1px solid #CCCCCC !important;
+}
+.text-left {
+	text-align:left !important;
+}
+.list th{
+	padding: 8px !important;
+	border-right: 1px solid #CCCCCC !important;
+  border-top: 1px solid #CCCCCC !important;
+}
+#tab-description h4{
+line-height:35px !important;
+}
+</style>

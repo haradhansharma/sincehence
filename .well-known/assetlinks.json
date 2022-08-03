@@ -1,0 +1,5 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target" : { "namespace": "android_app", "package_name": "com.sincehence.twa",
+                   "sha256_cert_fingerprints": ["9B:B6:63:7E:D6:C8:2E:E3:B1:17:A8:CD:2F:7A:2D:43:2D:34:DE:4A:8C:5E:89:55:84:0C:32:FB:98:56:D5:42"] }
+    }]

@@ -1,0 +1,76 @@
+<div class="table-responsive">
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <td class="text-left">{{ column_name }}</td>
+        <td class="text-left">{{ column_email }}</td>
+        <td class="text-left">{{ column_customer_group }}</td>
+        <td class="text-left">{{ column_type }}</td>
+        <td class="text-left">{{ column_date_added }}</td>
+        {#/////#}
+        <td class="text-right">Spm store</td>
+     {#/////#}
+        <td class="text-right">{{ column_action }}</td>
+        
+      </tr>
+    </thead>
+    <tbody>
+    {% if customer_approvals %}
+    {% for customer_approval in customer_approvals %}
+    
+    
+    <tr>
+      <td class="text-left">{{ customer_approval.name }}</td>
+      <td class="text-left">{{ customer_approval.email }}</td>
+      <td class="text-left">{{ customer_approval.customer_group }}</td>
+      <td class="text-left">{{ customer_approval.type }}</td>
+      <td class="text-left">{{ customer_approval.date_added }}</td>
+{#/////#}
+        <td class="text-right">
+
+      <form action ="" method="post">
+
+      
+      <input type="hidden" name="email" value="{{ customer_approval.email }}">
+      
+      {% if (customer_approval.customer_group == 'Retailer franchise' and customer_approval.email != customer_approval.spm_email ) or (customer_approval.customer_group == 'Distributer franchise' and customer_approval.email != customer_approval.spm_email )  %}
+      <input type="text" placeholder="Enter Store Name" name="spmstore" required>
+     <input type="submit" value="create store"class="btn btn-primary">
+     {% endif %}
+      </form>
+
+
+   
+      {% if customer_approval.email==customer_approval.spm_email %}
+      <a href="index.php?route=extension/shipping/storepickup_map/store/edit&user_token={{ token }}&storepickup_id={{customer_approval.spm_id}}" class="btn btn-info">Edit Spm </a>
+      {% endif %}
+      </td>
+    
+      
+
+      <td class="text-right">
+    {% if (customer_approval.customer_group != 'Retailer franchise' and customer_approval.email == customer_approval.spm_email ) or (customer_approval.customer_group != 'Distributer franchise' and customer_approval.email == customer_approval.spm_email ) or (customer_approval.customer_group == 'Default')   %}
+     <a href="{{ customer_approval.approve }}" data-toggle="tooltip" title="{{ button_approve }}" class="btn btn-success"><i class="fa fa-thumbs-o-up"></i></a> 
+     {% endif %}
+     <a href="{{ customer_approval.deny }}" data-toggle="tooltip" title="{{ button_deny }}" class="btn btn-danger"><i class="fa fa-thumbs-o-down"></i></a> 
+     
+     <a href="{{ customer_approval.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+   
+      </td>
+       
+     
+    </tr>
+    
+    {% endfor %}
+    {% else %}
+    <tr>
+      <td class="text-center" colspan="6">{{ text_no_results }}</td>
+    </tr>
+    {% endif %}
+    </tbody>
+  </table>
+</div>
+<div class="row">
+  <div class="col-sm-6 text-left">{{ pagination }}</div>
+  <div class="col-sm-6 text-right">{{ results }}</div>
+</div>

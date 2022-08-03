@@ -1,0 +1,50 @@
+{{ header }}
+<div id="account-account" class="container">
+  <ul class="breadcrumb">
+    {% for breadcrumb in breadcrumbs %}
+    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+    {% endfor %}
+  </ul>
+  {% if success %}
+  <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}</div>
+  {% endif %}
+  <div class="row">
+    {% if column_left and column_right %}
+    {% set class = 'col-sm-12' %}
+    {% elseif column_left or column_right %}
+    {% set class = 'col-sm-12' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">{{ content_top }}
+      <h2>{{ text_my_account }}</h2>
+      <ul class="list-unstyled">
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ edit }}"><span class ="fa fa-edit fa-5x"></span><span class="lbl">{{ text_edit }}</span></a></li>
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ password }}"><span class ="fa fa-key fa-5x"></span><span class="lbl">{{ text_password }}</span></a></li>
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ address }}"><span class ="fa fa-address-card fa-5x"></span><span class="lbl">{{ text_address }}</span></a></li>
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ wishlist }}"><span class ="fa fa-heart fa-5x"></span><span class="lbl">{{ text_wishlist }}</span></a></li>      
+      {% if credit_cards %}    
+        {% for credit_card in credit_cards %}        
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ credit_card.href }}"><span class ="fa fa-credit-card fa-5x"></span><span class="lbl">{{ credit_card.name }}</span></a></li>
+        {% endfor %}     
+        {% endif %}        
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ order }}"><span class ="fa fa-shopping-bag fa-5x"></span><span class="lbl">{{ text_order }}</span></a></li>       
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ download }}"><span class ="fa fa-download fa-5x"></span><span class="lbl">{{ text_download }}</span></a></li>
+        {% if reward %}        
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ reward }}"><span class ="fa fa-money fa-5x"></span><span class="lbl">{{ text_reward }}</span></a></li>
+        {% endif %}       
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ return }}"><span class ="fa fa-reply fa-5x"></span><span class="lbl">{{ text_return }}</span></a></li>        
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ transaction }}"><span class ="fa fa-exchange fa-5x"></span><span class="lbl">{{ text_transaction }}</span></a></li>       
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ recurring }}"><span class ="fa fa-recycle fa-5x"></span><span class="lbl">{{ text_recurring }}</span></a></li>
+        {% if not tracking %}
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ affiliate }}"><span class ="fa fa-road fa-5x"></span><span class="lbl">{{ text_affiliate_add }}</span></a></li>
+        {% else %}
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ affiliate }}"><span class ="fa fa-road fa-5x"></span><span class="lbl">{{ text_affiliate_edit }}</span></a></li>
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ tracking }}"><span class ="fa fa-binoculars fa-5x"></span><span class="lbl">{{ text_tracking }}</span></a></li>
+        {% endif %}      
+        <li class = "product-layout col-sm-6 col-md-4 col-lg-3"><a class ="product-thumb"  href="{{ newsletter }}"><span class ="fa fa-arrows fa-5x"></span><span class="lbl">{{ text_newsletter }}</span></a></li>
+      </ul>
+      {{ content_bottom }}</div>
+    </div>
+</div>
+{{ footer }}

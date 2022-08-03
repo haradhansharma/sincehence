@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<modification>
+    <name>Account Picture Modification</name>
+    <code>Account Picture Modification</code>
+    <version>1.0</version>
+    <author>AnyHow Infosystems</author>
+    <link>https://www.anyhowinfo.com</link>
+    <file path="catalog/language/*/account/register.php">
+        <operation>
+            <search><![CDATA[$_['text_your_password']]]></search>
+            <add position="before">
+                <![CDATA[
+                $_['text_account_picture']   = 'Account Picture';
+                $_['entry_account_picture']  = 'Choose Your Account Picture';			
+                $_['button_account_picture'] = 'Upload';	
+                $_['error_size']             = 'Warning: Maximum size is 2mb!';
+                $_['error_extension']        = 'Warning: Invalid Extension!';				
+                ]]>
+            </add>
+        </operation>		
+    </file>
+    <file path="catalog/controller/account/register.php">
+        <operation>
+            <search>
+                <![CDATA[$this->model_account_customer->addCustomer($this->request->post);]]>
+            </search>
+            <add position="after">
+                <![CDATA[
+                if ($this->config->get('module_account_picture_status') && isset($this->request->files['account_picture'])) {
+                    $this->load->model('extension/module/account_picture');
+                    $image =$this->request->files['account_picture']['name'];
+                    $image_tmp =$this->request->files['account_picture']['tmp_name'];
+                    $this->model_extension_module_account_picture->addCustomerPhoto($customer_id,$image,$image_tmp);	
+                }
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search><![CDATA[$data['action'] = $this->url->link('account/register', '', true);]]></search>
+            <add position="before">
+                <![CDATA[
+				if ($this->config->get('module_account_picture_status')) {
+                    $data['module_account_picture_status'] = $this->config->get('module_account_picture_status');
+                    if (isset($this->error['size'])) {
+                        $data['error_size'] = $this->error['size'];
+                    } else {
+                        $data['error_size'] = '';
+                    }
+                    if (isset($this->error['extension'])) {
+                        $data['error_extension'] = $this->error['extension'];
+                    } else {
+                        $data['error_extension'] = '';
+                    }
+				}
+                ]]>
+            </add>
+        </operation>
+        <operation>
+            <search><![CDATA[if ((utf8_strlen($this->request->post['email']) > 96)]]></search>
+            <add position="before">
+                <![CDATA[
+                if ($this->config->get('module_account_picture_status') && isset($this->request->files['account_picture']) && !empty($this->request->files['account_picture']['name'])) {
+                    $allowed = array('image/jpg','image/jpeg','image/png','image/gif');
+                    if (!in_array($this->request->files['account_picture']['type'], $allowed)) {
+                        $this->error['extension'] = $this->language->get('error_extension');
+                    }
+                    if ($this->request->files['account_picture']['size']> 2097152) {
+                        $this->error['size'] = $this->language->get('error_size');
+                    }
+                }
+                ]]>
+            </add>
+        </operation>
+    </file>
+    <file path="catalog/view/theme/*/template/account/register.twig">
+        <operation>
+			<search><![CDATA[<legend>{{ text_your_password }}</legend>]]></search>
+			<add position="before">
+                <![CDATA[
+                {% if module_account_picture_status %}
+			    <legend>{{ text_account_picture }}</legend>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">{{ entry_account_picture }}</label>
+                    <div class="col-sm-10">
+                    <div class="fileUpload btn-group">
+                        <input id="uploadFile" placeholder="Choose Photo" disabled="disabled" />
+                        <button class="btn btn-info fa fa-upload"></button>
+                        <input id="uploadBtn" type="file" name="account_picture" class="upload" />
+                    </div>
+                    {% if error_extension %}
+                        <div class="text-danger">{{ error_extension }}</div>
+                    {% endif %}
+                    {% if error_size %}
+                        <div class="text-danger">{{ error_size }}</div>
+                    {% endif %}
+                    </div>
+                </div>
+
+                <style>
+				.fileUpload {
+					position: relative;
+					overflow: hidden;
+					background: none;
+					border:none;	
+					padding-top:2px;
+					padding-bottom: 2px;
+					margin-bottom: 5px;
+					border-radius: 4px;
+					float:left;
+				}
+				.fileUpload input.upload {
+					position: absolute;
+					top: 0;
+					right: 0;
+					margin: 0;
+					padding: 0;
+					font-size: 20px;
+					cursor: pointer;
+					float:left;
+					opacity: 0;
+					filter: alpha(opacity=0);
+				}
+                #uploadFile {
+                height: 29px;
+                }
+				</style>
+			    <script>
+                $('#uploadBtn').on('change', function () {
+                    var imageValue = $(this).val();
+                    $('#uploadFile').val(imageValue);
+                });
+			    </script>
+                </fieldset>
+                <fieldset>
+                {% endif %}
+			    ]]>
+            </add>
+		</operation>
+    </file>
+    <file path="catalog/controller/common/header.php">
+        <operation>
+            <search><![CDATA[$this->load->language('common/header');]]></search>
+            <add position="before">
+                <![CDATA[
+                if ($this->config->get('module_account_picture_status')) {
+                    $this->load->model('extension/module/account_picture');
+                    $customer_info = $this->model_extension_module_account_picture->getCustomerInfo($this->customer->getId());
+                    if($customer_info){
+                        $data['customer_image'] = 'catalog/view/theme/default/image/' . $customer_info['customer_id'] . '.' . $customer_info['extension'];
+                    } else {
+                        $data['customer_image'] = 'image/no_image.png';
+                    }
+                }
+                ]]>
+            </add>
+        </operation>		
+    </file>
+    <file path="catalog/view/theme/*/template/common/header.twig">
+        <operation>
+            <search><![CDATA[<i class="fa fa-user"></i>]]></search>
+            <add position="replace"><![CDATA[
+                {% if logged and customer_image %}
+                <img src="{{ customer_image }}" width="20" height="20">
+                {% else %}
+                <i class="fa fa-user"></i>
+                {% endif %}
+            ]]></add>
+        </operation>		
+    </file> 
+</modification>

@@ -1,0 +1,639 @@
+{{ header }} 
+{{ column_left }} 
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="submit" form="form-progressive-web-application-general" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fa fa-save"></i>&nbsp;&nbsp;&nbsp;{{ button_save }}</button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i>&nbsp;&nbsp;&nbsp;{{ button_cancel }}</a></div>
+        <h1>{{ heading_title }}</h1>
+        <ul class="breadcrumb">
+          {% for key, breadcrumb in breadcrumbs %}  
+          <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+          {% endfor %} 
+        </ul>
+      </div>
+    </div>
+    <div class="container-fluid">
+      {% if error_warning %} 
+      <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i>{{ error_warning }} 
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+      </div>
+      {% endif %} 
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title"><i class="fa fa-pencil"></i>&nbsp;&nbsp;{{ text_edit }}</h3>
+          <span class="pull-right">Extension by:&nbsp;&nbsp;<a href="mailto:todor.donev@gmail.com">Todor Donev</a></span>
+        </div>
+        <div class="panel-body">
+
+          <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-progressive-web-application-general" class="form-horizontal">
+
+            <div class="form-group">
+              <div class="col-sm-1">&nbsp;</div>
+              <div class="col-sm-10 alert alert-info">{{ text_about }}</div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-4 control-label" for="input-status"><span data-toggle="tooltip" title="{{ help_status }}">{{ entry_status }}</span></label>
+              <div class="col-sm-4 col-sm-offset-1">
+                <select name="analytics_progressive_web_application_status[status]" id="input-status" class="form-control">
+                  {% if status %} 
+                  <option value="1" selected="selected">{{ text_activated }}</option>
+                  <option value="0">{{ text_deactivated }}</option>
+                  {% else %}   
+                  <option value="1">{{ text_activated }}</option>
+                  <option value="0" selected="selected">{{ text_deactivated }}</option>
+                  {% endif %}  
+                </select>
+              </div>
+            </div>
+
+            <hr>
+
+            <div class="col-sm-12">
+             <!-- START MENU -->
+             <ul class="nav nav-tabs">
+              <li class="active"><a data-toggle="tab" href="#tab-general"><b><i class="fa fa-cog"></i>&nbsp;&nbsp;{{ tab_general }}</b></a></li>
+              <li><a data-toggle="tab" href="#tab-support"><b><i class="fa fa-life-ring"></i>&nbsp;&nbsp;{{ tab_support }}</b></a></li>
+            </ul>
+            <!-- END MENU -->
+
+            <!--START TAB CONTENT -->
+            <div class="tab-content">
+             <!-- START TAB GENERAL -->
+             <div class="tab-pane active" id="tab-general">
+
+              <div class="panel panel-default">
+               <div class="panel-heading"><h3 class="panel-title" style="line-height:2"><b><i class="fa fa-cog"></i>&nbsp;&nbsp;{{ head_general }}</b></h3></div>
+               <div class="panel-body">
+
+                <legend>{{ legend_preloader }}</legend>
+
+                <div class="form-group">
+                  <div class="col-sm-1">&nbsp;</div>
+                  <div class="col-sm-10 alert alert-info">{{ about_preloader }}</div>
+                  <label class="col-sm-4 control-label" for="input-preloader"><span data-toggle="tooltip" title="{{ help_preloader }}">{{ entry_preloader }}</span></label>
+                  <div class="col-sm-4 col-sm-offset-1">
+                    <select name="analytics_progressive_web_application_status[preloader_status]" id="input-preloader" class="form-control">
+                      {% if preloader_status %} 
+                      <option value="1" selected="selected">{{ text_activated }}</option>
+                      <option value="0">{{ text_deactivated }}</option>
+                      {% else %}   
+                      <option value="1">{{ text_activated }}</option>
+                      <option value="0" selected="selected">{{ text_deactivated }}</option>
+                      {% endif %}  
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-4 control-label" for="input-preloader-background-color"><span data-toggle="tooltip" title="{{ help_preloader_background_color }}">{{ entry_preloader_background_color }}</span></label>
+                  <div class="col-sm-4 col-sm-offset-1">
+                    <div id="preloader-background-color" class="input-group">
+                      <span class="input-group-addon" style="min-width: 100px;"><i style="min-width: 100px;"></i></span>
+                      <input type="text" name="analytics_progressive_web_application_status[preloader_background]" value="{{ preloader_background and preloader_background ? preloader_background : '' }}"  id="input-preloader-background-color" class="form-control" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-4 control-label" for="input-preloader-balls-color"><span data-toggle="tooltip" title="{{ help_preloader_balls_color }}">{{ entry_preloader_balls_color }}</span></label>
+                  <div class="col-sm-4 col-sm-offset-1">
+                    <div id="preloader-balls-color" class="input-group">
+                      <span class="input-group-addon" style="min-width: 100px;"><i style="min-width: 100px;"></i></span>
+                      <input type="text" name="analytics_progressive_web_application_status[preloader_balls_color]" value="{{ preloader_balls_color and preloader_balls_color ? preloader_balls_color : '' }}"  id="input-preloader-balls-color" class="form-control" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-4 control-label" for="input-preloader-fadeout"><span data-toggle="tooltip" title="{{ help_preloader_fadeout }}">{{ entry_preloader_fadeout }}</span></label>
+                  <div class="col-sm-4 col-sm-offset-1">
+                    <input type="range" min="5" max="10000" name="analytics_progressive_web_application_status[preloader_fadeout]" value="{{ preloader_fadeout and preloader_fadeout ? preloader_fadeout : '' }}" id="input-preloader-fadeout" class="form-control" />
+                    <p>{{ text_value }} &nbsp;&nbsp;<span id="preloader-fadeout-value"></span>&nbsp;{{ text_milliseconds }}</p>
+                    <script>
+                    var fadeout_slider = document.getElementById("input-preloader-fadeout");
+                    var fadeout_output = document.getElementById("preloader-fadeout-value");
+                    fadeout_output.innerHTML = fadeout_slider.value;
+
+                    fadeout_slider.oninput = function() {
+                      fadeout_output.innerHTML = this.value;
+                    }
+                    </script>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label class="col-sm-4 control-label" for="input-preloader-size"><span data-toggle="tooltip" title="{{ help_preloader_size }}">{{ entry_preloader_size }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <input type="range" min="1" max="100" name="analytics_progressive_web_application_status[preloader_size]" value="{{ preloader_size and preloader_size ? preloader_size : '' }}" id="input-preloader-size" class="form-control" />
+                    <p>{{ text_value }} &nbsp;&nbsp;<span id="preloader-size-value"></span>&nbsp;%</p>
+                    <script>
+                    var slider = document.getElementById("input-preloader-size");
+                    var output = document.getElementById("preloader-size-value");
+                    output.innerHTML = slider.value;
+
+                    slider.oninput = function() {
+                      output.innerHTML = this.value;
+                    }
+                    </script>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                    <label class="col-sm-4 control-label" for="input-preloader-balls-size"><span data-toggle="tooltip" title="{{ help_preloader_balls_size }}">{{ entry_preloader_balls_size }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <input type="range" min="5" max="500" name="analytics_progressive_web_application_status[preloader_balls_size]" value="{{ preloader_balls_size and preloader_balls_size ? preloader_balls_size : '' }}"  id="input-preloader-balls-size" class="form-control" />
+                    <p>{{ text_value }} &nbsp;&nbsp;<span id="preloader-balls-size-value"></span>&nbsp;px</p>
+                    <script>
+                    var slider_balls = document.getElementById("input-preloader-balls-size");
+                    var output_balls = document.getElementById("preloader-balls-size-value");
+                    output_balls.innerHTML = slider_balls.value;
+
+                    slider_balls.oninput = function() {
+                      output_balls.innerHTML = this.value;
+                    }
+                    </script>
+                    </div>
+                    </div>
+
+                    <legend>{{ legend_preloader_displays }}</legend>
+                    <div class="form-group ">
+                    <label class="col-sm-4 control-label" for="input-preloader-display-small-phone"><span data-toggle="tooltip" title="{{ help_preloader_display_small_phone }}">{{ entry_preloader_display_small_phone }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <input type="checkbox" id="input-preloader-display-small-phone" name="analytics_progressive_web_application_status[preloader_display][small_phone]" value="1" {{ preloader_display.small_phone ? 'checked' : '' }} class="col-sm-12" data-size="lg" data-toggle="toggle" data-onstyle="primary" data-on="<i class='fa fa-toggle-on'></i>&nbsp;&nbsp;&nbsp;{{ text_activated }}" data-off="<i class='fa fa-toggle-off'></i>&nbsp;&nbsp;&nbsp;{{ text_deactivated }}"data-width="100%">
+                    </div>
+                    </div>
+
+                    <div class="form-group ">
+                    <label class="col-sm-4 control-label" for="input-preloader-display-normal-phone"><span data-toggle="tooltip" title="{{ help_preloader_display_normal_phone }}">{{ entry_preloader_display_normal_phone }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <input type="checkbox" id="input-preloader-display-normal-phone" name="analytics_progressive_web_application_status[preloader_display][normal_phone]" value="1" {{ preloader_display.normal_phone ? 'checked' : '' }} class="col-sm-12" data-size="lg" data-toggle="toggle" data-onstyle="primary" data-on="<i class='fa fa-toggle-on'></i>&nbsp;&nbsp;&nbsp;{{ text_activated }}" data-off="<i class='fa fa-toggle-off'></i>&nbsp;&nbsp;&nbsp;{{ text_deactivated }}"data-width="100%">
+                    </div>
+                    </div>
+
+                    <div class="form-group ">
+                    <label class="col-sm-4 control-label" for="input-preloader-display-large-phone"><span data-toggle="tooltip" title="{{ help_preloader_display_large_phone }}">{{ entry_preloader_display_large_phone }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <input type="checkbox" id="input-preloader-display-large-phone" name="analytics_progressive_web_application_status[preloader_display][large_phone]" value="1" {{ preloader_display.large_phone ? 'checked' : '' }} class="col-sm-12" data-size="lg" data-toggle="toggle" data-onstyle="primary" data-on="<i class='fa fa-toggle-on'></i>&nbsp;&nbsp;&nbsp;{{ text_activated }}" data-off="<i class='fa fa-toggle-off'></i>&nbsp;&nbsp;&nbsp;{{ text_deactivated }}"data-width="100%">
+                    </div>
+                    </div>
+
+                    <div class="form-group ">
+                    <label class="col-sm-4 control-label" for="input-preloader-display-tablet"><span data-toggle="tooltip" title="{{ help_preloader_display_tablet }}">{{ entry_preloader_display_tablet }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <input type="checkbox" id="input-preloader-display-tablet" name="analytics_progressive_web_application_status[preloader_display][tablet]" value="1" {{ preloader_display.tablet ? 'checked' : '' }} class="col-sm-12" data-size="lg" data-toggle="toggle" data-onstyle="primary" data-on="<i class='fa fa-toggle-on'></i>&nbsp;&nbsp;&nbsp;{{ text_activated }}" data-off="<i class='fa fa-toggle-off'></i>&nbsp;&nbsp;&nbsp;{{ text_deactivated }}"data-width="100%">
+                    </div>
+                    </div>
+
+                    <div class="form-group ">
+                    <label class="col-sm-4 control-label" for="input-preloader-display-large-tablet"><span data-toggle="tooltip" title="{{ help_preloader_display_large_tablet }}">{{ entry_preloader_display_large_tablet }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <input type="checkbox" id="input-preloader-display-large-tablet" name="analytics_progressive_web_application_status[preloader_display][large_tablet]" value="1" {{ preloader_display.large_tablet ? 'checked' : '' }} class="col-sm-12" data-size="lg" data-toggle="toggle" data-onstyle="primary" data-on="<i class='fa fa-toggle-on'></i>&nbsp;&nbsp;&nbsp;{{ text_activated }}" data-off="<i class='fa fa-toggle-off'></i>&nbsp;&nbsp;&nbsp;{{ text_deactivated }}"data-width="100%">
+                    </div>
+                    </div>
+
+                    <div class="form-group ">
+                    <label class="col-sm-4 control-label" for="input-preloader-display-laptop"><span data-toggle="tooltip" title="{{ help_preloader_display_laptop }}">{{ entry_preloader_display_laptop }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <input type="checkbox" id="input-preloader-display-laptop" name="analytics_progressive_web_application_status[preloader_display][laptop]" value="1" {{ preloader_display.laptop ? 'checked' : '' }} class="col-sm-12" data-size="lg" data-toggle="toggle" data-onstyle="primary" data-on="<i class='fa fa-toggle-on'></i>&nbsp;&nbsp;&nbsp;{{ text_activated }}" data-off="<i class='fa fa-toggle-off'></i>&nbsp;&nbsp;&nbsp;{{ text_deactivated }}"data-width="100%">
+                    </div>
+                    </div>
+
+                    <div class="form-group ">
+                    <label class="col-sm-4 control-label" for="input-preloader-display-large-laptop"><span data-toggle="tooltip" title="{{ help_preloader_display_large_laptop }}">{{ entry_preloader_display_large_laptop }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <input type="checkbox" id="input-preloader-display-large-laptop" name="analytics_progressive_web_application_status[preloader_display][large_laptop]" value="1" {{ preloader_display.large_laptop ? 'checked' : '' }} class="col-sm-12" data-size="lg" data-toggle="toggle" data-onstyle="primary" data-on="<i class='fa fa-toggle-on'></i>&nbsp;&nbsp;&nbsp;{{ text_activated }}" data-off="<i class='fa fa-toggle-off'></i>&nbsp;&nbsp;&nbsp;{{ text_deactivated }}"data-width="100%">
+                    </div>
+                    </div>
+
+                    <div class="form-group ">
+                    <label class="col-sm-4 control-label" for="input-preloader-display-desktop"><span data-toggle="tooltip" title="{{ help_preloader_display_desktop }}">{{ entry_preloader_display_desktop }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <input type="checkbox" id="input-preloader-display-desktop" name="analytics_progressive_web_application_status[preloader_display][desktop]" value="1" {{ preloader_display.desktop ? 'checked' : '' }} class="col-sm-12" data-size="lg" data-toggle="toggle" data-onstyle="primary" data-on="<i class='fa fa-toggle-on'></i>&nbsp;&nbsp;&nbsp;{{ text_activated }}" data-off="<i class='fa fa-toggle-off'></i>&nbsp;&nbsp;&nbsp;{{ text_deactivated }}"data-width="100%">
+                    </div>
+                    </div>
+
+                    <div class="form-group ">
+                    <label class="col-sm-4 control-label" for="input-preloader-display-large-desktop"><span data-toggle="tooltip" title="{{ help_preloader_display_large_desktop }}">{{ entry_preloader_display_large_desktop }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <input type="checkbox" id="input-preloader-display-large-desktop" name="analytics_progressive_web_application_status[preloader_display][large_desktop]" value="1" {{ preloader_display.large_desktop ? 'checked' : '' }} class="col-sm-12" data-size="lg" data-toggle="toggle" data-onstyle="primary" data-on="<i class='fa fa-toggle-on'></i>&nbsp;&nbsp;&nbsp;{{ text_activated }}" data-off="<i class='fa fa-toggle-off'></i>&nbsp;&nbsp;&nbsp;{{ text_deactivated }}"data-width="100%">
+                    </div>
+                    </div>
+
+                    <div class="form-group ">
+                    <label class="col-sm-4 control-label" for="input-preloader-display-fhd"><span data-toggle="tooltip" title="{{ help_preloader_display_fhd }}">{{ entry_preloader_display_fhd }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <input type="checkbox" id="input-preloader-display-fhd" name="analytics_progressive_web_application_status[preloader_display][fhd]" value="1" {{ preloader_display.fhd ? 'checked' : '' }} class="col-sm-12" data-size="lg" data-toggle="toggle" data-onstyle="primary" data-on="<i class='fa fa-toggle-on'></i>&nbsp;&nbsp;&nbsp;{{ text_activated }}" data-off="<i class='fa fa-toggle-off'></i>&nbsp;&nbsp;&nbsp;{{ text_deactivated }}"data-width="100%">
+                    </div>
+                    </div>
+
+                    <div class="form-group ">
+                    <label class="col-sm-4 control-label" for="input-preloader-display-uhd"><span data-toggle="tooltip" title="{{ help_preloader_display_uhd }}">{{ entry_preloader_display_uhd }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <input type="checkbox" id="input-preloader-display-uhd" name="analytics_progressive_web_application_status[preloader_display][uhd]" value="1" {{ preloader_display.uhd ? 'checked' : '' }} class="col-sm-12" data-size="lg" data-toggle="toggle" data-onstyle="primary" data-on="<i class='fa fa-toggle-on'></i>&nbsp;&nbsp;&nbsp;{{ text_activated }}" data-off="<i class='fa fa-toggle-off'></i>&nbsp;&nbsp;&nbsp;{{ text_deactivated }}"data-width="100%">
+                    </div>
+                    </div>
+
+                    <div class="form-group ">
+                    <label class="col-sm-4 control-label" for="input-preloader-display-4k-uhd"><span data-toggle="tooltip" title="{{ help_preloader_display_fk_uhd }}">{{ entry_preloader_display_fk_uhd }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <input type="checkbox" id="input-preloader-display-4k-uhd" name="analytics_progressive_web_application_status[preloader_display][fk_uhd]" value="1" {{ preloader_display.fk_uhd ? 'checked' : '' }} class="col-sm-12" data-size="lg" data-toggle="toggle" data-onstyle="primary" data-on="<i class='fa fa-toggle-on'></i>&nbsp;&nbsp;&nbsp;{{ text_activated }}" data-off="<i class='fa fa-toggle-off'></i>&nbsp;&nbsp;&nbsp;{{ text_deactivated }}"data-width="100%">
+                    </div>
+                    </div>
+
+
+                    <legend>{{ legend_manifest }}</legend>
+                    <div class="form-group">
+                    <div class="col-sm-1">&nbsp;</div>
+                    <div class="col-sm-10 alert alert-info">{{ about_offline_enabled }}</div>
+                    <label class="col-sm-4 control-label" for="input-offline-enabled"><span data-toggle="tooltip" title="{{ help_offline_enabled }}">{{ entry_offline_enabled }}</span></label>
+                    <div class="col-sm-4 col-sm-offset-1">
+                    <select name="analytics_progressive_web_application_status[offline_enabled]" id="input-offline-enabled" class="form-control">
+                    {% if offline_enabled %} 
+                      <option value="1" selected="selected">{{ text_activated }}</option>
+                      <option value="0">{{ text_deactivated }}</option>
+                      {% else %}   
+                        <option value="1">{{ text_activated }}</option>
+                        <option value="0" selected="selected">{{ text_deactivated }}</option>
+                       {% endif %}   
+                        </select>
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                        <div class="col-sm-1">&nbsp;</div>
+                        <div class="col-sm-10 alert alert-info">{{ about_display }}</div>
+                        <label class="col-sm-4 control-label" for="input-display"><span data-toggle="tooltip" title="{{ help_display }}">{{ entry_display }}</span></label>
+                        <div class="col-sm-4 col-sm-offset-1">
+                        <select name="analytics_progressive_web_application_status[display]" id="input-display" class="form-control">
+                        <!-- <option value="browser" {{ display and display == 'browser' ? 'selected=selected' : '' }}>browser (Default)</option> -->
+                        <option value="fullscreen" {{ display and display == 'fullscreen' ? 'selected=selected' : '' }}>fullscreen</option>
+                        <option value="standalone" {{ display and display == 'standalone' ? 'selected=selected' : '' }}>standalone (Default)</option>
+                        <option value="minimal-ui" {{ display and display == 'minimal-ui' ? 'selected=selected' : '' }}>minimal-ui</option>
+                        </select>
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                        <div class="col-sm-1">&nbsp;</div>
+                        <div class="col-sm-10 alert alert-info">{{ about_orientation }}</div>
+                        <label class="col-sm-4 control-label" for="input-orientation"><span data-toggle="tooltip" title="{{ help_orientation }}">{{ entry_orientation }}</span></label>
+                        <div class="col-sm-4 col-sm-offset-1">
+                        <select name="analytics_progressive_web_application_status[orientation]" id="input-orientation" class="form-control">
+                        <option value="portrait" {{ orientation and orientation == 'portrait' ? 'selected=selected' : '' }}>portrait (Default)</option>
+                        <option value="portrait-primary" {{ orientation and orientation == 'portrait-primary' ? 'selected=selected' : '' }}>portrait-primary</option>
+                        <option value="portrait-secondary" {{ orientation and orientation == 'portrait-secondary' ? 'selected=selected' : '' }}>portrait-secondary</option>
+                        <option value="landscape" {{ orientation and orientation == 'landscape' ? 'selected=selected' : '' }}>landscape</option>
+                        <option value="landscape-primary" {{ orientation and orientation == 'landscape-primary' ? 'selected=selected' : '' }}>landscape-primary</option>
+                        <option value="landscape-secondary" {{ orientation and orientation == 'landscape-secondary' ? 'selected=selected' : '' }}>landscape-secondary</option>
+                        <option value="any" {{ orientation and orientation == 'any' ? 'selected=selected' : '' }}>any</option>
+                        <option value="natural" {{ orientation and orientation == 'natural' ? 'selected=selected' : '' }}>natural</option>
+                        </select>
+                        </div>
+                        </div>
+
+                        <div class="form-group">
+                        <div class="col-sm-1">&nbsp;</div>
+                        <div class="col-sm-10 alert alert-info">{{ about_direction }}</div>
+                        <label class="col-sm-4 control-label" for="input-direction"><span data-toggle="tooltip" title="{{ help_display }}">{{ entry_direction }}</span></label>
+                        <div class="col-sm-4 col-sm-offset-1">
+                        <select name="analytics_progressive_web_application_status[direction]" id="input-direction" class="form-control">
+                        <option value="auto" {{ direction and direction == 'auto' ? 'selected=selected' : '' }}>Auto (Default)</option>
+                        <option value="rtl" {{ direction and direction == 'rtl' ? 'selected=selected' : '' }}>Left To Right</option>
+                        <option value="ltr" {{ direction and direction == 'ltr' ? 'selected=selected' : '' }}>Right To Lef</option>
+                        </select>
+                        </div>
+                        </div>
+
+                        <div class="form-group required">
+                        <div class="col-sm-1">&nbsp;</div>
+                        <div class="col-sm-10 alert alert-info">{{ about_background_color }}</div>
+                        <label class="col-sm-4 control-label" for="input-background-color"><span data-toggle="tooltip" title="{{ help_background_color }}">{{ entry_background_color }}</span></label>
+                        <div class="col-sm-4 col-sm-offset-1">
+                        <div id="background-color" class="input-group">
+                        <span class="input-group-addon" style="min-width: 100px;"><i style="min-width: 100px;"></i></span>
+                        <input type="text" name="analytics_progressive_web_application_status[background_color]" value="{{ background_color and background_color ? background_color : '' }}"  id="input-background-color" class="form-control" />
+                        </div>
+                        </div>
+                        </div>
+
+                        <div class="form-group required">
+                        <div class="col-sm-1">&nbsp;</div>
+                        <div class="col-sm-10 alert alert-info">{{ about_theme_color }}</div>
+                        <label class="col-sm-4 control-label" for="input-theme-color"><span data-toggle="tooltip" title="{{ help_theme_color }}">{{ entry_theme_color }}</span></label>
+                        <div class="col-sm-4 col-sm-offset-1">
+                        <div class="input-group" id="theme-color">
+                        <span class="input-group-addon" style="min-width: 100px;"><i style="min-width: 100px;"></i></span>
+                        <input type="text" name="analytics_progressive_web_application_status[theme_color]" value="{{ theme_color and theme_color ? theme_color : '' }}"  id="input-theme-color" class="form-control" />
+                        </div>
+                        </div>
+                        </div>
+
+                        <div class="form-group required">
+                        <label class="col-sm-4 control-label" for="input-application-image"><span data-toggle="tooltip" title="{{ help_icon }}">{{ entry_icon }}</span></label>
+                        <div class="col-sm-4 col-sm-offset-2">
+                        {% if application_image %} 
+                          <a href="" id="thumb-pwa-image" data-toggle="image" class="img-thumbnail"><img height="150px" width="150px" src="{{ application_image }}" alt="" title="" data-placeholder="{{ image_placeholder }}" /></a>
+                          <input type="hidden" name="analytics_progressive_web_application_status[application_image]" value="{{ thumb_application_image }}" id="input-application-image" />
+                          {% else %}   
+                            <a href="" id="thumb-pwa-image" data-toggle="image" class="img-thumbnail"><img height="150px" width="150px" src="{{ image_placeholder }}" alt="" title="" data-placeholder="{{ image_placeholder }}" /></a>
+                            <input type="hidden" name="analytics_progressive_web_application_status[application_image]" value="" id="input-application-image" />
+                            {% endif %}  
+                            </div>
+                            </div>
+
+                            <div class="form-group">
+                            <div class="col-sm-12"> 
+                            <ul class="nav nav-tabs" id="language">
+                            {% for key, language in languages %}  
+                              <li><a href="#language{{ language.language_id }}" data-toggle="tab"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" />&nbsp;&nbsp;&nbsp;{{ language.name }}</a></li>
+                             {% endfor %}  
+                              </ul>
+                              <div class="tab-content">
+                              {% for key, language in languages %}  
+                                <div class="tab-pane" id="language{{ language.language_id }}">
+                                <div class="form-group required">
+                                <label class="col-sm-3 control-label" for="input-short-name-{{ language.language_id }}"><span data-toggle="tooltip" title="{{ help_short_name }}">{{ entry_short_name }}</span></label>
+                                <div class="col-sm-7 col-sm-offset-1">
+                                <div class="input-group">       
+                                <label class="input-group-addon" for="input-short-name-{{ language.language_id }}"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" />&nbsp;&nbsp;&nbsp;{{ language.name }}</label>
+                                <input type="text" name="analytics_progressive_web_application_status[short_name][{{ language.language_id }}]" value="{{ short_name[language.language_id] ? short_name[language.language_id] : '' }}" placeholder="{{ placeholder_short_name }}" id="input-short-name-{{ language.language_id }}" class="form-control" />
+                                </div>
+                                {% if error_short_name[language.language_id] %} 
+                                  <div class="text-danger">{{ error_short_name[language.language_id] }}</div>
+                                  {% endif %} 
+                                  </div>
+                                  </div>
+                                  <script type="text/javascript">$('#input-short-name-{{ language.language_id }} ').prop('maxlength', '32');</script>
+
+                                  <div class="form-group required">
+                                    <label class="col-sm-3 control-label" for="input-long-name-{{ language.language_id }}"><span data-toggle="tooltip" title="{{ help_long_name }}">{{ entry_long_name }}</span></label>
+                                    <div class="col-sm-7 col-sm-offset-1">
+                                      <div class="input-group">
+                                        <label class="input-group-addon" for="input-long-name-{{ language.language_id }}"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" />&nbsp;&nbsp;&nbsp;{{ language.name }}</label>
+                                        <input type="text" name="analytics_progressive_web_application_status[long_name][{{ language.language_id }}]" value="{{ long_name[language.language_id] ? long_name[language.language_id] : '' }}" placeholder="{{ placeholder_long_name }}" id="input-long-name-{{ language.language_id }}" class="form-control" />
+                                      </div>
+                                      {% if error_long_name[language.language_id] %} 
+                                      <div class="text-danger">{{ error_long_name[language.language_id] }}</div>
+                                      {% endif %} 
+                                    </div>
+                                  </div>
+                                  <script type="text/javascript">$('#input-long-name-{{ language.language_id }} ').prop('maxlength', '64');</script>
+
+                                  <div class="form-group required">
+                                    <label class="col-sm-3 control-label" for="input-description-{{ language.language_id }}"><span data-toggle="tooltip" title="{{ help_description }}">{{ entry_description }}</span></label>
+                                    <div class="col-sm-7 col-sm-offset-1">
+                                      <div class="input-group">
+                                        <label class="input-group-addon" for="input-description-{{ language.language_id }}"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" />&nbsp;&nbsp;&nbsp;{{ language.name }}</label>
+                                        {% if description[language.language_id] %} 
+                                        <textarea rows="8" style="resize:vertical; overflow:auto;" name="analytics_progressive_web_application_status[description][{{ language.language_id }}]" placeholder="{{ placeholder_description }}" id="input-description-{{ language.language_id }}" class="form-control col-sm-12" />{{ description[language.language_id] }}</textarea>
+                                        {% else %}   
+                                        <textarea rows="8" style="resize:vertical; overflow:auto;" name="analytics_progressive_web_application_status[description][{{ language.language_id }}]" placeholder="{{ placeholder_description }}" id="input-description-{{ language.language_id }}" class="form-control col-sm-12" /></textarea>
+                                        {% endif %}  
+                                        <input type="hidden" name="analytics_progressive_web_application_status[lang_code][{{ language.language_id }}]" value="{{ lang_code[language.language_id] ? lang_code[language.language_id] : language.code }}"  />
+                                      </div>
+                                      {% if error_description[language.language_id] %} 
+                                      <div class="text-danger">{{ error_description[language.language_id] }}</div>
+                                      {% endif %} 
+                                    </div>
+                                  </div>
+                                  <script type="text/javascript">$('#input-description-{{ language.language_id }} ').prop('maxlength', '1024');</script>
+                                </div>
+                                {% endfor %}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+                  <!-- START TAB GENERAL -->
+
+
+                  <div class="tab-pane" id="tab-support">
+                   <!-- START TAB SUPPORT -->
+                   <form method="post" enctype="multipart/form-data" id="form-progressive-web-application-support" class="form-horizontal">
+                    <div class="panel panel-default">
+                     <div class="panel-heading"><h3 class="panel-title" style="line-height:2"><b><i class="fa fa-life-ring"></i>&nbsp;&nbsp;{{ head_support }}</b></h3></div>
+                     <div class="panel-body">
+
+                      <div class="col-sm-12" id="results"></div>
+
+                      <div class="form-group required">
+                       <label class="col-md-3 control-label">{{ entry_your_name }}</label>
+                       <div class="col-md-7">
+                        <div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                         <input required autofocus placeholder="{{ placeholder_your_name }}" id="progressive_web_application_support_name" name="progressive_web_application_support_name" type="text" value="" class="form-control" maxlength="64">
+                         <script type="text/javascript">$('#progressive_web_application_support_name').prop('maxlength', '64');</script>
+                       </div>
+                     </div>
+                   </div>
+                   <div class="form-group required">
+                     <label class="col-md-3 control-label">{{ entry_your_email }}</label>
+                     <div class="col-md-7">
+                      <div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                       <input required placeholder="{{ placeholder_your_email }}" id="progressive_web_application_support_email" name="progressive_web_application_support_email" type="email" value="" class="form-control" maxlength="64">
+                       <script type="text/javascript">$('#progressive_web_application_support_email').prop('maxlength', '64');</script>
+                     </div>
+                   </div>
+                 </div>
+                 <div class="form-group required">
+                   <label class="col-md-3 control-label">{{ entry_subject }}</label>
+                   <div class="col-md-7">
+                    <div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                     <input required placeholder="{{ placeholder_subject }}" id="progressive_web_application_support_subject" name="progressive_web_application_support_subject" type="text" value="" class="form-control">
+                     <script type="text/javascript">$('#progressive_web_application_support_subject').prop('maxlength', '200');</script>
+                   </div>
+                 </div>
+               </div>
+               <div class="form-group required">
+                 <label class="col-md-3 control-label">{{ entry_problem_description }}</label>
+                 <div class="col-md-7">
+                  <div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                   <textarea required rows="5" style="resize:vertical; overflow:auto;" placeholder="{{ placeholder_problem_description }}" class="form-control" id="progressive_web_application_support_text" name="progressive_web_application_support_text" maxlength="1024"></textarea>
+                   <script type="text/javascript">$('#progressive_web_application_support_text').prop('maxlength', '1024');</script>
+                 </div>
+               </div>
+             </div>
+             <div class="form-group required">
+               <label class="col-md-3 control-label">{{ entry_ftp_admin }}</label>
+               <div class="col-md-7">
+                <div class="input-group col-sm-12 col-xs-12 col-md-12 col-lg-12">
+                 <textarea required rows="5" style="resize:vertical; overflow:auto;" placeholder="{{ placeholder_ftp_admin }}" class="form-control" id="progressive_web_application_support_connections" name="progressive_web_application_support_connections" maxlength="1024"></textarea>
+                 <script type="text/javascript">$('#progressive_web_application_support_connections').prop('maxlength', '1024');</script>
+               </div>
+             </div>
+           </div>
+           <div class="form-group">
+             <label class="col-md-3 control-label">&nbsp;&nbsp;</label>
+             <div class="col-md-7">
+              <button id="send-ticket" for="form-progressive-web-application-support" onclick="event.stopPropagation();event.preventDefault();" data-toggle="tooltip" title="{{ button_ticket }}" data-loading-text="{{ text_loading_content }}" class="btn btn-primary col-sm-12 col-xs-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3"><i class="fa fa-bug"></i>&nbsp;&nbsp;&nbsp;<b>{{ button_ticket }}</b></button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </form>
+
+  </div><!-- END TAB SUPPORT -->
+</div>
+</div>
+
+
+</div>
+</div>
+</div>
+</div>
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js" async></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.3/js/bootstrap-colorpicker.min.js" async></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  //$("ul.nav-tabs li:first").addClass("active");
+  //$(".tab-content .tab-pane:first").addClass("active");
+  //$('#language a[href="#language1"]').trigger('click');
+  $('#language a:first').trigger('click');
+  $("#background-color").colorpicker();
+  $("#theme-color").colorpicker();
+  $("#preloader-background-color").colorpicker();
+  $("#preloader-balls-color").colorpicker();
+
+  $("#input-theme-color").focus(function(){
+    $("#theme-color").trigger('click');
+  }); 
+
+  $("#input-background-color").focus(function(){
+    $("#background-color").trigger('click');
+  }); 
+
+});
+</script>
+
+<script>
+$('#send-ticket').on('click', function(e) {
+			//e.preventDefault();
+			//e.stopPropagation();
+            //e.stopImmediatePropagation();
+            var node = this;
+            var progressive_web_application_support_name = $('#progressive_web_application_support_name').val();
+            var progressive_web_application_support_email = $('#progressive_web_application_support_email').val();
+            var progressive_web_application_support_subject = $('#progressive_web_application_support_subject').val();
+            var progressive_web_application_support_text = $('#progressive_web_application_support_text').val();
+            var progressive_web_application_support_connections = $('#progressive_web_application_support_connections').val();
+            $.ajax({
+            	url: '{{ send_ticket }} ',
+            	method: 'POST',
+            	data: {
+            		progressive_web_application_support_email: progressive_web_application_support_email, 
+            		progressive_web_application_support_name: progressive_web_application_support_name, 
+            		progressive_web_application_support_subject: progressive_web_application_support_subject, 
+            		progressive_web_application_support_text: progressive_web_application_support_text, 
+            		progressive_web_application_support_connections: progressive_web_application_support_connections
+            	},
+            	dataType: 'json',
+            	beforeSend: function() {
+            		$('#progressive_web_application_support_name').closest('.input-group').removeClass('has-error');
+            		$('#progressive_web_application_support_email').closest('.input-group').removeClass('has-error');
+            		$('#progressive_web_application_support_text').closest('.input-group').removeClass('has-error');
+            		$('#progressive_web_application_support_subject').closest('.input-group').removeClass('has-error');
+            		$('#progressive_web_application_support_connections').closest('.input-group').removeClass('has-error');
+            		$('#support-alert').remove();
+            		$('#loading').remove();
+            		$(node).button('loading');
+            		$('<div id="loading"><i class="fa fa-circle-o-notch fa-spin"></i>&nbsp;&nbsp;{{ text_loading_content }}</div>').prependTo('#results');
+
+            		if ($('#progressive_web_application_support_name').val().length == 0 || $('#progressive_web_application_support_name').val() === undefined) {
+            			$('#loading').remove();
+            			$(node).button('reset');
+            			$('#progressive_web_application_support_name').closest('.input-group').addClass('has-error');
+            			$('html, body').animate({scrollTop: $("#results").offset().top-130}, 1500);
+            			return false;
+            		}
+
+            		if ($('#progressive_web_application_support_email').val().length == 0 || $('#progressive_web_application_support_email').val() === undefined) {
+            			$('#loading').remove();
+            			$(node).button('reset');
+            			$('#progressive_web_application_support_email').closest('.input-group').addClass('has-error');
+            			$('html, body').animate({scrollTop: $("#results").offset().top-100}, 1500);
+            			return false;
+            		}
+
+            		if ($('#progressive_web_application_support_subject').val().length == 0 || $('#progressive_web_application_support_subject').val() === undefined) {
+            			$('#loading').remove();
+            			$(node).button('reset');
+            			$('#progressive_web_application_support_subject').closest('.input-group').addClass('has-error');
+            			$('html, body').animate({scrollTop: $("#results").offset().top-70}, 1500);
+            			return false;
+            		}
+
+            		if ($('#progressive_web_application_support_text').val().length == 0 || $('#progressive_web_application_support_text').val() === undefined) {
+            			$('#loading').remove();
+            			$(node).button('reset');
+            			$('#progressive_web_application_support_text').closest('.input-group').addClass('has-error');
+            			$('html, body').animate({scrollTop: $("#results").offset().top-40}, 1500);
+            			return false;
+            		}
+
+            		if ($('#progressive_web_application_support_connections').val().length == 0 || $('#progressive_web_application_support_connections').val() === undefined) {
+            			$('#loading').remove();
+            			$(node).button('reset');
+            			$('#progressive_web_application_support_connections').closest('.input-group').addClass('has-error');
+            			$('html, body').animate({scrollTop: $("#results").offset().top-10}, 1500);
+            			return false;
+            		}
+
+            		$('#send-ticket').prop("disabled", false); 
+            		$('#progressive_web_application_support_name').prop("disabled", false);
+            		$('#progressive_web_application_support_email').prop("disabled", false);
+            		$('#progressive_web_application_support_text').prop("disabled", false);
+            		$('#progressive_web_application_support_subject').prop("disabled", false);
+            		$('#progressive_web_application_support_connections').prop("disabled", false);
+            	},
+            	complete: function() {
+            		$('#loading').remove();
+            		$('#send-ticket').prop("disabled", false); 
+            		$('#progressive_web_application_support_name').prop("disabled", false);
+            		$('#progressive_web_application_support_email').prop("disabled", false);
+            		$('#progressive_web_application_support_text').prop("disabled", false);
+            		$('#progressive_web_application_support_subject').prop("disabled", false);
+            		$('#progressive_web_application_support_connections').prop("disabled", false);
+            	},
+            	success: function(json) {
+            		$(node).button('reset');
+            		$('#support-alert').remove();
+            		if (json['success']) {
+            			$('#results').prepend('<div id="support-alert" class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            		}
+            		if (json['error']) {
+            			$('#results').prepend('<div id="support-alert" class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            		}
+            		$('#loading').remove();
+            		$('#progressive_web_application_support_name').val('');
+            		$('#progressive_web_application_support_email').val('');
+            		$('#progressive_web_application_support_text').val('');
+            		$('#progressive_web_application_support_subject').val('');
+            		$('#progressive_web_application_support_connections').val('');
+            		$('html, body').animate({scrollTop: $("#results").offset().top-180}, 1500);
+            	},
+            	error: function(xhr, ajaxOptions, thrownError) {
+            		alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+            		$('#loading').remove();
+            		$(node).button('reset');
+            		$('#support-alert').remove();
+            		$('#results').prepend('<div id="support-alert" class="alert alert-danger"><i class="fa fa-exclamation-circle"></i>Warning: Fatal Error! <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+            		$('#send-ticket').prop("disabled", false); 
+            		$('#progressive_web_application_support_name').prop("disabled", false);
+            		$('#progressive_web_application_support_email').prop("disabled", false);
+            		$('#progressive_web_application_support_text').prop("disabled", false);
+            		$('#progressive_web_application_support_subject').prop("disabled", false);
+            		$('#progressive_web_application_support_connections').prop("disabled", false);
+            		$('html, body').animate({scrollTop: $("#results").offset().top-180}, 1500);
+            	},
+            });
+});
+</script>
+
+{{ footer }}  

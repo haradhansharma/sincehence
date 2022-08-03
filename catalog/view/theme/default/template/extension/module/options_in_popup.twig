@@ -1,0 +1,269 @@
+<div id="options_in_popup" class="oip-popup-container zoom-anim-dialog" style="max-width: {{ popup_width }}px;">
+  <div class="oip-popup-content text-left">
+    <button class="oip-close pull-right" id="oip-btn-close">×</button>
+    <div class="oip-popup-header">
+      <h3 class="oip-popup-title">{{ oip_title }}</h3>
+    </div>
+    <div class="oip-popup-body">
+      <div id="oip-product">
+        {% if (thumb or show_product_details) %} 
+        <div class="oip-product-info">
+          <div class="row">
+            {% if (thumb) %} 
+            <div class="{{ show_product_details ? 'col-xs-6' : 'col-xs-12' }}">
+              <a class="thumbnail" href="{{ product_page_url }}" title="{{ oip_title }}"><img src="{{ thumb }}" title="{{ oip_title }}" alt="{{ oip_title }}" /></a>
+            </div>
+            {% endif %} 
+            {% if (show_product_details) %} 
+            <div class="{{ thumb ? 'col-xs-6' : 'col-xs-12' }}">
+              <ul class="list-unstyled">
+                {% if (manufacturer and show_brand) %} 
+                <li>{{ text_brand }} <a href="{{ manufacturer_url }}">{{ manufacturer }}</a></li>
+                {% endif %} 
+                {% if (show_model) %} 
+                <li>{{ text_model }} {{ model }}</li>
+                {% endif %} 
+                {% if (sku and show_sku) %} 
+                <li>{{ text_sku }} {{ sku }}</li>
+                {% endif %} 
+                {% if (reward and show_reward) %} 
+                <li>{{ text_reward }} {{ reward }}</li>
+                {% endif %} 
+                {% if (show_stock) %} 
+                <li>{{ text_stock }} {{ stock }}</li>
+                {% endif %} 
+              </ul>
+              {% if (price) %} 
+              <ul class="list-unstyled">
+                {% if (not special and show_price) %} 
+                <li>
+                  <h3 class="js-oip-price">{{ price }}</h3>
+                </li>
+                {% elseif (show_price) %} 
+                <li>
+                  <h3><span class="js-oip-special">{{ special }}</span> <span class="oip-price-old js-oip-price">{{ price }}</span></h3>
+                </li>
+                {% endif %} 
+                {% if (tax and show_tax) %} 
+                <li>{{ text_tax }} <span class="js-oip-ex-tax">{{ tax }}</span></li>
+                {% endif %} 
+                {% if (points and show_points) %} 
+                <li>{{ text_points }} <span class="js-oip-points">{{ points }}</span></li>
+                {% endif %} 
+                {% if (discounts and show_discounts) %} 
+                <li>
+                  <hr class="oip-hr">
+                </li>
+                {% for discount in discounts %} 
+                <li>{{ discount['quantity'] }}{{ text_discount }}{{ discount['price'] }}</li>
+                {% endfor %} 
+                {% endif %} 
+              </ul>
+              {% endif %} 
+            </div>
+            {% endif %} 
+          </div>
+        </div>
+        {% endif %} 
+        {% if (description) %} 
+        <div class="oip-product-description">{{ description }}</div>
+        {% endif %} 
+        {% if (options) %} 
+        <div class="oip-options-block">
+          <h3>{{ text_option }}</h3>
+          {% for option in options %} 
+          {% if (option['type'] == 'select') %} 
+          <div class="form-group{{ option['required'] ? ' required' : '' }}">
+            <label class="control-label" for="input-option{{ option['product_option_id'] }}">{{ option['name'] }}</label>
+            <select name="option[{{ option['product_option_id'] }}]" id="input-option{{ option['product_option_id'] }}" class="form-control">
+              <option value="">{{ text_select }}</option>
+              {% for option_value in option['product_option_value'] %} 
+              <option value="{{ option_value['product_option_value_id'] }}">{{ option_value['name'] }} 
+                {% if (option_value['price']) %} 
+                ({{ option_value['price_prefix'] }}{{ option_value['price'] }})
+                {% endif %} 
+              </option>
+              {% endfor %} 
+            </select>
+          </div>
+          {% endif %} 
+          {% if (option['type'] == 'radio') %} 
+          <div class="form-group{{ option['required'] ? ' required' : '' }}">
+            <label class="control-label">{{ option['name'] }}</label>
+            <div id="input-option{{ option['product_option_id'] }}">
+              {% for option_value in option['product_option_value'] %} 
+              <div class="radio">
+                <label>
+                  <input type="radio" name="option[{{ option['product_option_id'] }}]" value="{{ option_value['product_option_value_id'] }}" />
+                  {% if (option_value['image']) %} 
+                  <img src="{{ option_value['image'] }}" alt="{{ option_value['name'] ~ option_value['price'] ? ' ' ~ option_value['price_prefix'] ~ option_value['price'] : '' }}" class="img-thumbnail" />
+                  {% endif %} 
+                  {{ option_value['name'] }} 
+                  {% if (option_value['price']) %} 
+                  ({{ option_value['price_prefix'] }}{{ option_value['price'] }})
+                  {% endif %} 
+                </label>
+              </div>
+              {% endfor %} 
+            </div>
+          </div>
+          {% endif %} 
+          {% if (option['type'] == 'checkbox') %} 
+          <div class="form-group{{ option['required'] ? ' required' : '' }}">
+            <label class="control-label">{{ option['name'] }}</label>
+            <div id="input-option{{ option['product_option_id'] }}">
+              {% for option_value in option['product_option_value'] %} 
+              <div class="checkbox">
+                <label>
+                  <input type="checkbox" name="option[{{ option['product_option_id'] }}][]" value="{{ option_value['product_option_value_id'] }}" />
+                  {% if (option_value['image']) %} 
+                  <img src="{{ option_value['image'] }}" alt="{{ option_value['name'] ~ option_value['price'] ? ' ' ~ option_value['price_prefix'] ~ option_value['price'] : '' }}" class="img-thumbnail" />
+                  {% endif %} 
+                  {{ option_value['name'] }} 
+                  {% if (option_value['price']) %} 
+                  ({{ option_value['price_prefix'] }}{{ option_value['price'] }})
+                  {% endif %} 
+                </label>
+              </div>
+              {% endfor %} 
+            </div>
+          </div>
+          {% endif %} 
+          {% if (option['type'] == 'image') %} 
+          <div class="form-group{{ option['required'] ? ' required' : '' }}">
+            <label class="control-label">{{ option['name'] }}</label>
+            <div id="input-option{{ option['product_option_id'] }}">
+              {% for option_value in option['product_option_value'] %} 
+              <div class="radio">
+                <label>
+                  <input type="radio" name="option[{{ option['product_option_id'] }}]" value="{{ option_value['product_option_value_id'] }}" />
+                  <img src="{{ option_value['image'] }}" alt="{{ option_value['name'] ~ option_value['price'] ? ' ' ~ option_value['price_prefix'] ~ option_value['price'] : '' }}" class="img-thumbnail" /> {{ option_value['name'] }} 
+                  {% if (option_value['price']) %} 
+                  ({{ option_value['price_prefix'] }}{{ option_value['price'] }})
+                  {% endif %} 
+                </label>
+              </div>
+              {% endfor %} 
+            </div>
+          </div>
+          {% endif %} 
+          {% if (option['type'] == 'text') %} 
+          <div class="form-group{{ option['required'] ? ' required' : '' }}">
+            <label class="control-label" for="input-option{{ option['product_option_id'] }}">{{ option['name'] }}</label>
+            <input type="text" name="option[{{ option['product_option_id'] }}]" value="{{ option['value'] }}" placeholder="{{ option['name'] }}" id="input-option{{ option['product_option_id'] }}" class="form-control" />
+          </div>
+          {% endif %} 
+          {% if (option['type'] == 'textarea') %} 
+          <div class="form-group{{ option['required'] ? ' required' : '' }}">
+            <label class="control-label" for="input-option{{ option['product_option_id'] }}">{{ option['name'] }}</label>
+            <textarea name="option[{{ option['product_option_id'] }}]" rows="5" placeholder="{{ option['name'] }}" id="input-option{{ option['product_option_id'] }}" class="form-control">{{ option['value'] }}</textarea>
+          </div>
+          {% endif %} 
+          {% if (option['type'] == 'file') %} 
+          <div class="form-group{{ option['required'] ? ' required' : '' }}">
+            <label class="control-label">{{ option['name'] }}</label>
+            <button type="button" id="button-upload{{ option['product_option_id'] }}" data-loading-text="{{ text_loading }}" class="btn btn-default btn-block"><i class="fa fa-upload"></i> {{ button_upload }}</button>
+            <input type="hidden" name="option[{{ option['product_option_id'] }}]" value="" id="input-option{{ option['product_option_id'] }}" />
+          </div>
+          {% endif %} 
+          {% if (option['type'] == 'date') %} 
+          <div class="form-group{{ option['required'] ? ' required' : '' }}">
+            <label class="control-label" for="input-option{{ option['product_option_id'] }}">{{ option['name'] }}</label>
+            <div class="input-group date">
+              <input type="text" name="option[{{ option['product_option_id'] }}]" value="{{ option['value'] }}" data-date-format="YYYY-MM-DD" id="input-option{{ option['product_option_id'] }}" class="form-control" />
+              <span class="input-group-btn">
+                <button class="btn btn-default" type="button"><i class="fa fa-calendar"></i></button>
+              </span>
+            </div>
+          </div>
+          {% endif %} 
+          {% if (option['type'] == 'datetime') %} 
+          <div class="form-group{{ option['required'] ? ' required' : '' }}">
+            <label class="control-label" for="input-option{{ option['product_option_id'] }}">{{ option['name'] }}</label>
+            <div class="input-group datetime">
+              <input type="text" name="option[{{ option['product_option_id'] }}]" value="{{ option['value'] }}" data-date-format="YYYY-MM-DD HH:mm" id="input-option{{ option['product_option_id'] }}" class="form-control" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+              </span>
+            </div>
+          </div>
+          {% endif %} 
+          {% if (option['type'] == 'time') %} 
+          <div class="form-group{{ option['required'] ? ' required' : '' }}">
+            <label class="control-label" for="input-option{{ option['product_option_id'] }}">{{ option['name'] }}</label>
+            <div class="input-group time">
+              <input type="text" name="option[{{ option['product_option_id'] }}]" value="{{ option['value'] }}" data-date-format="HH:mm" id="input-option{{ option['product_option_id'] }}" class="form-control" />
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default"><i class="fa fa-calendar"></i></button>
+              </span>
+            </div>
+          </div>
+          {% endif %} 
+          {% endfor %} 
+        </div>
+        {% endif %} 
+        {% if (recurrings) %} 
+        <div class="oip-options-block">
+          <h3>{{ text_payment_recurring }}</h3>
+          <div class="form-group required">
+            <select name="recurring_id" class="form-control">
+              <option value="">{{ text_select }}</option>
+              {% for recurring in recurrings %} 
+              <option value="{{ recurring['recurring_id'] }}">{{ recurring['name'] }}</option>
+              {% endfor %} 
+            </select>
+            <div class="help-block" id="oip-recurring-description"></div>
+          </div>
+        </div>
+        {% endif %} 
+        <div class="row oip-total-qty-row">
+          <div class="col-xs-6 oip-total-block">
+            {% if (show_total_price) %} 
+            <div class="oip-total">
+              <div class="oip-total-label">{{ text_total }}</div>
+              {% if (price) %} 
+              <ul class="list-unstyled">
+                {% if (not special) %} 
+                <li>
+                  <h3 class="oip-price js-oip-total-price">{{ price }}</h3>
+                </li>
+                {% else %} 
+                <li>
+                  <h3 class="oip-price"><span class="js-oip-total-special">{{ special }}</span> <span class="oip-price-old js-oip-total-price">{{ price }}</span></h3>
+                </li>
+                {% endif %} 
+                {% if (tax and show_tax) %} 
+                <li class="oip-total-tax">{{ text_tax }} <span class="js-oip-total-ex-tax">{{ tax }}</span></li>
+                {% endif %} 
+              </ul>
+              {% endif %} 
+            </div>
+            {% endif %} 
+          </div>
+          <div class="col-xs-6 oip-qty-block">
+            {% if (show_quantity) %} 
+            <div class="oip-qty-label">{{ text_quantity }}</div>
+            <div class="input-group">
+              <span class="input-group-btn">
+                <button id="oip-minus-qty" type="button" class="btn btn-primary"><i class="fa fa-minus"></i></button>
+              </span>
+              <input type="text" name="quantity" id="oip-input-qty" value="{{ minimum }}" autocomplete="off" class="oip-input-qty form-control">
+              <span class="input-group-btn">
+                <button type="button" id="oip-plus-qty" class="btn btn-primary"><i class="fa fa-plus"></i></button>
+              </span>
+            </div>
+            {% endif %} 
+          </div>
+        </div>
+        <div class="oip-addtocart-block">
+          {% if (minimum > 1) %} 
+          <div class="alert alert-info oip-alert"><i class="fa fa-info-circle"></i> {{ text_minimum }}</div>
+          {% endif %} 
+          <input type="hidden" name="oip_minimum" value="{{ minimum }}">
+          <input type="hidden" name="product_id" value="{{ product_id }}">
+          <button type="button" id="oip-button-cart" class="btn btn-primary btn-lg btn-block" data-loading-text="{{ text_loading }}">{{ button_cart }}</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

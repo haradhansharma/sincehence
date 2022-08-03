@@ -1,0 +1,131 @@
+{{ header }}	
+<div id="account-order" class="container">	
+  <ul class="breadcrumb">	
+    {% for breadcrumb in breadcrumbs %}	
+    <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>	
+    {% endfor %}	
+  </ul>	
+  
+  
+  <div class="row">{{ column_left }}	
+    {% if column_left and column_right %}	
+    {% set class = 'col-sm-6' %}	
+    {% elseif column_left or column_right %}	
+    {% set class = 'col-sm-9' %}	
+    {% else %}	
+    {% set class = 'col-sm-12' %}	
+    {% endif %}	
+    <div id="content" class="{{ class }}">{{ content_top }}	
+      <h1>{{ heading_title }}</h1>
+      <div style="z-index: 1000" id="dialog_message"></div>
+      {% if orders %}
+      
+      
+      {{states.name}}
+      <div class="table-responsive">	
+        <table class="table table-bordered table-hover">	
+          <thead>	
+            <tr>	
+         <td class="text-right">order id</td>
+            
+            <td class="text-right">Order From</td>
+            <td class="text-right">From Store</td>
+             <td class="text-right">Total</td>
+              <td class="text-right">Payment Pending</td>
+              <td class="text-right">Status</td>
+               <td class="text-right">Date Added</td>
+               {#<td class="text-right">Date Modifiyed</td>#}
+               <td class="text-right">View</td>
+            </tr>	
+          </thead>	
+          <tbody>	
+           {% for order in orders %}	
+            <tr>	
+	          <td class="text-right">{{ order.order_id }}
+	         {% if  order.new_cus == this_customer %} 
+	          ({{ order.new_order }})
+	          {% endif %}
+	          
+	          </td>
+              <td class="text-left">{{ order.name }}</td>
+              <td class="text-left">{{ order.s_name }}</td>
+              <td class="text-left">{{ order.total }}</td>
+              <td class="text-right">{{ order.pending_total }}</td>
+              <td class="text-right">{{ order.order_status }}</td>
+              <td class="text-left">{{ order.order_date }}</td>
+              {#<td class="text-left">{{ order.date_modified }}</td>#}
+              <td class="text-right">
+                  
+ {#///sharma for partial payment#}
+ {% if order.new_order >0 and order.new_cus == this_customer and order.new_order == dis_paid_order %}
+      <div class="form-group" style="width: 60px; display: inline-block; margin-bottom: -15px">
+             <div  class="col-sm-4">{% if order.pending_total_list  > 0 %}<button value="{{ order.order_id }}" type="button" name="email" form="form-order" id="button-send" data-loading-text="{{ text_loading }}" data-toggle="tooltip" title="{{ button_send }}" class="btn btn-primary" onclick="send('index.php?route=extension/total/partial_payment_total/send&order_id={{ order.order_id }}');"> <i class="fa fa-envelope"></i></button>{% else %} {{ '' }}{% endif %}</div></div>
+    {% endif %}
+{#/////sharma  for partial payment     #}
+                  
+                  
+            <a href="{{ order.detailsinfo }}" data-toggle="tooltip" title="{{ button_view }}" class="btn btn-info"><i class="fa fa-eye"></i></a></td>
+            </tr>	
+            {% endfor %}	
+          </tbody>	
+        </table>	
+      </div>	
+      <div class="row">	
+        <div class="col-sm-6 text-left">{{ pagination }}</div>	
+        <div class="col-sm-6 text-right">{{ results }}</div>	
+      </div>	
+      {% else %}	
+      <p>No Order Recived Yet!</p>	
+      {% endif %}	
+      <div class="buttons clearfix">	
+        <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>	
+      </div>	
+      {{ content_bottom }}</div>	
+    {{ column_right }}</div>	
+</div>	
+{#//////sharma for partial payment#}
+
+                   <script type="text/javascript">  
+            <!--  
+      var sending = '{{ text_sending }}'; 
+function send(url) {  
+    $.ajax({  
+        url: url, 
+        type: 'post', 
+        data: $('#email name'), 
+        dataType: 'json', 
+        beforeSend: function() {  
+       $('html, body').animate({ scrollTop: 0 }, '100');  
+         $('#dialog_message').append('<div style="color: #848484; width: 100%;  background-color: #ddffcc; text-align: center; padding: 5px;">' + sending + '</div>');  
+           $('.alert').remove();  
+           //$('#dialog_message').animate({width: 'toggle'}); 
+       //$('#dialog_message').css({height: '16px'}) 
+        },  
+        complete: function() {  
+            $('#button-send').button('submit'); 
+          },  
+        success: function(json) { 
+            $('.alert').remove(); 
+      $('#dialog_message').empty(); 
+      if (json['success']) {  
+        //$('#content > .container-fluid').prepend('<div class="alert alert-success"><i class="fa fa-check-circle"></i>  ' + json['success'] + '</div>'); 
+        $('#content > .container-fluid').prepend('<div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i>  ' + json['success'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>'); 
+      }   
+        
+      if (json['error']) {  
+        $('#content > .container-fluid').prepend('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + ' <button type="button" class="close" data-dismiss="alert">&times;</button></div>'); 
+      } 
+        
+          
+    },  
+        error: function(xhr, ajaxOptions, thrownError) {  
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText); 
+        } 
+    }); 
+} 
+//--></script>
+{#///////sharma for partial payment#}
+
+
+
+{{ footer }}

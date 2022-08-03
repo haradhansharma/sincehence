@@ -1,0 +1,200 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+
+    {% if success %}
+    <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+
+    <!-- Generation Section -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ text_generate_seo }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal" id="form-reports-pro">
+
+          <input type="hidden" name="generate">
+
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th width="25%">{{ text_name }}</th>
+                <th>{{ text_description }}</th>
+                <th width="15%">{{ text_action }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+                <tr>
+                  <td><b>{{ text_seo_url_generator }}</b></td>
+                  <td>{{ text_seo_url_generator_desc }}</td>
+                  <td class="text-left"><button class="btn btn-primary btn-md" id="seo_url" onclick="$('input[name=\'generate\']').val('seo_url')">{{ text_generate }}</button></td>
+                </tr>
+
+                <tr>
+                  <td><b>{{ text_meta_title_generator }}</b></td>
+                  <td>{{ text_meta_title_generator_desc }}</td>
+                  <td class="text-left"><button class="btn btn-primary btn-md" id="meta_title" onclick="$('input[name=\'generate\']').val('meta_title')">{{ text_generate }}</button></td>
+                </tr>
+
+                <tr>
+                  <td><b>{{ text_meta_description_generator }}</b></td>
+                  <td>{{ text_meta_description_generator_desc }}</td>
+                  <td class="text-left"><button class="btn btn-primary btn-md" id="meta_description" onclick="$('input[name=\'generate\']').val('meta_description')">{{ text_generate }}</button></td>
+                </tr>
+
+                <tr>
+                  <td><b>{{ text_keywords_generator }}</b></td>
+                  <td>{{ text_keywords_generator_desc }}</td>
+                  <td class="text-left"><button class="btn btn-primary btn-md" id="keywords" onclick="$('input[name=\'generate\']').val('keywords')">{{ text_generate }}</button></td>
+                </tr>
+
+                <tr>
+                  <td><b>{{ text_meta_tags_generator }}</b></td>
+                  <td>{{ text_meta_tags_generator_desc }}</td>
+                  <td class="text-left"><button class="btn btn-primary btn-md" id="meta_tags" onclick="$('input[name=\'generate\']').val('meta_tags')">{{ text_generate }}</button></td>
+                </tr>
+
+                <tr>
+                  <td><b>{{ text_custom_titles_generator }}</b></td>
+                  <td>{{ text_custom_titles_generator_desc }}</td>
+                  <td class="text-left"><button class="btn btn-primary btn-md" id="custom_title" onclick="$('input[name=\'generate\']').val('custom_title')">{{ text_generate }}</button></td>
+                </tr>
+
+                <tr>
+                  <td><b>{{ text_custom_alts_generator }}</b></td>
+                  <td>{{ text_custom_alts_generator_desc }}</td>
+                  <td class="text-left"><button class="btn btn-primary btn-md" id="custom_alt" onclick="$('input[name=\'generate\']').val('custom_alt')">{{ text_generate }}</button></td>
+                </tr>
+
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+
+    <!-- Rename Images Section -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ text_rename_images }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal" id="form-reports-pro">
+
+          <input type="hidden" name="rename_images">
+
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th width="25%">{{ text_name }}</th>
+                <th>{{ text_description }}</th>
+                <th width="15%">{{ text_action }}</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td><b>{{ text_seo_images }}</b></td>
+                  <td>{{ text_seo_images_desc }}</td>
+                  <td>
+                    <button class="btn btn-primary btn-md" id="rename_images" onclick="$('input[name=\'rename_images\']').val('rename_images')">{{ text_rename }}</button>
+                  </td>
+                </tr>
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+
+    <!-- Clearance Section -->
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">{{ text_clear_seo }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-module" class="form-horizontal" id="form-reports-pro">
+
+          <input type="hidden" name="clear">
+
+          <table class="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th width="25%">{{ text_name }}</th>
+                <th>{{ text_description }}</th>
+                <th width="15%">{{ text_action }}</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td><b>{{ text_clear_meta_tags }}</b></td>
+                  <td>{{ text_clear_meta_tags_desc }}</td>
+                  <td>
+                    <button class="btn btn-danger btn-md" id="clear_meta_tags" onclick="$('input[name=\'clear\']').val('clear_meta_tags')">{{ text_clear }}</button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b>{{ text_clear_seo_url }}</b></td>
+                  <td>{{ text_clear_seo_url_desc }}</td>
+                  <td>
+                    <button class="btn btn-danger btn-md" id="clear_seo" onclick="$('input[name=\'clear\']').val('clear_seo_url')">{{ text_clear }}</button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b>{{ text_clear_meta_keywords }}</b></td>
+                  <td>{{ text_clear_meta_keywords_desc }}</td>
+                  <td>
+                    <button class="btn btn-danger btn-md" id="clear_meta_keywords" onclick="$('input[name=\'clear\']').val('clear_meta_keywords')">{{ text_clear }}</button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b>{{ text_clear_meta_description }}</b></td>
+                  <td>{{ text_clear_meta_description_desc }}</td>
+                  <td>
+                    <button class="btn btn-danger btn-md" id="clear_meta_description" onclick="$('input[name=\'clear\']').val('clear_meta_description')">{{ text_clear }}</button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b>{{ text_clear_custom_titles }}</b></td>
+                  <td>{{ text_clear_custom_titles_desc }}</td>
+                  <td>
+                    <button class="btn btn-danger btn-md" id="clear_custom_titles" onclick="$('input[name=\'clear\']').val('clear_custom_titles')">{{ text_clear }}</button>
+                  </td>
+                </tr>
+
+                <tr>
+                  <td><b>{{ text_clear_custom_alts }}</b></td>
+                  <td>{{ text_clear_custom_alts_desc }}</td>
+                  <td>
+                    <button class="btn btn-danger btn-md" id="clear_custom_alts" onclick="$('input[name=\'clear\']').val('clear_custom_alts')">{{ text_clear }}</button>
+                  </td>
+                </tr>
+
+            </tbody>
+          </table>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}

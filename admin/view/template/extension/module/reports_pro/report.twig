@@ -1,0 +1,686 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+    {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+
+    <div class="panel-group" id="parent">
+      <!-- store report -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#parent" href="#store" id="report" ><i class="fa fa-bar-chart-o fw"></i> {{ text_store }} </a>
+          </h4>
+        </div>
+        <div id="store" class="panel-collapse collapse in">
+          <div class="panel-body">
+            <table class="table table-bordered table-responsive table-hover">
+              <thead>
+                <tr>
+                  <th>{{ text_description }}</th>
+                  <th width="5%">{{ text_value }}</th>
+                  <th width="5%">{{ text_action }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ text_store_meta_title }}</td>
+                  <td>{% if store_meta_title is not empty  %}{{ text_yes }}{% else %}{{ text_no }}{% endif %}</td>
+                  <td><a href="{{ store_action }}" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_store_meta_description }}</td>
+                  <td>{% if store_meta_description is not empty  %}{{ text_yes }}{% else %}{{ text_no }}{% endif %}</td>
+                  <td><a href="{{ store_action }}" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_store_meta_keyword }}</td>
+                  <td>{% if store_meta_keyword is not empty  %}{{ text_yes }}{% else %}{{ text_no }}{% endif %}</td>
+                  <td><a href="{{ store_action }}" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- products report -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#parent" href="#products"  ><i class="fa fa-bar-chart-o fw"></i> {{ text_products }} </a>
+          </h4>
+        </div>
+        <div id="products" class="panel-collapse collapse">
+          <div class="panel-body">
+            <table class="table table-bordered table-responsive table-hover">
+              <thead>
+                <tr>
+                  <th>{{ text_description }}</th>
+                  <th width="5%">{{ text_value }}</th>
+                  <th width="5%">{{ text_action }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ text_total_products }}</td>
+                  <td>{% if total_products < 10 and total_products != 0 %}{{ '0' }}{% endif %}{{ total_products }}</td>
+                  <td><a href="{{ product_action }}" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_product_active }}</td>
+                  <td>{% if active_products < 10 and active_products != 0 %}{{ '0' }}{% endif %}{{ active_products }}</td>
+                  <td><a href="{{ product_action }}&filter_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr> 
+                  <td>{{ text_product_inactive }}</td>
+                  <td>{% if inactive_products < 10 and inactive_products != 0 %}{{ '0' }}{% endif %}{{ inactive_products }}</td>
+                  <td><a href="{{ product_action }}&filter_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                 <tr>  
+                  <td>{{ text_products_with_image }}</td>
+                  <td>{% if products_with_image < 10 and products_with_image != 0 %}{{ '0' }}{% endif %}{{ products_with_image }}</td>
+                  <td><a href="{{ product_action }}&filter_image_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+
+                <tr>  
+                  <td>{{ text_products_without_image }}</td>
+                  <td>{% if products_without_image < 10 and products_without_image != 0 %}{{ '0' }}{% endif %}{{ products_without_image }}</td>
+                  <td><a href="{{ product_action }}&filter_image_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_in_stock_products }}</td>
+                  <td>{% if in_stock_products < 10 and in_stock_products != 0 %}{{ '0' }}{% endif %}{{ in_stock_products }}</td>
+                  <td><a href="{{ product_action }}&filter_quantity_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_out_of_stock_products }}</td>
+                  <td>{% if out_of_stock_products < 10 and out_of_stock_products != 0 %}{{ '0' }}{% endif %}{{ out_of_stock_products }}</td>
+                  <td><a href="{{ product_action }}&filter_quantity_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_product_seo }}</td>
+                  <td>{% if seo_url_products < 10 and seo_url_products != 0 %}{{ '0' }}{% endif %}{{ seo_url_products }}</td>
+                  <td><a href="{{ product_action }}&filter_seo_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_product_no_seo }}</td>
+                  <td>{% if non_seo_url_products < 10 and non_seo_url_products != 0 %}{{ '0' }}{% endif %}{{ non_seo_url_products }}</td>
+                  <td><a href="{{ product_action }}&filter_seo_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+               
+                <tr>  
+                  <td>{{ text_products_with_tags }}</td>
+                  <td>{% if products_with_tags < 10 and products_with_tags != 0 %}{{ '0' }}{% endif %}{{ products_with_tags }}</td>
+                  <td><a href="{{ product_action }}&filter_tags_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+
+                <tr>  
+                  <td>{{ text_products_without_tags }}</td>
+                  <td>{% if products_without_tags < 10 and products_without_tags != 0 %}{{ '0' }}{% endif %}{{ products_without_tags }}</td>
+                  <td><a href="{{ product_action }}&filter_tags_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_products_with_meta_title }}</td>
+                  <td>{% if products_with_meta_title < 10 and products_with_meta_title != 0  %}{{ '0' }}{% endif %}{{ products_with_meta_title }}</td>
+                  <td><a href="{{ product_action }}&filter_meta_title_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_products_without_meta_title }}</td>
+                  <td>{% if products_without_meta_title < 10 and products_without_meta_title != 0 %}{{ '0' }}{% endif %}{{ products_without_meta_title }}</td>
+                  <td><a href="{{ product_action }}&filter_meta_title_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_products_with_meta_description }}</td>
+                  <td>{% if products_with_meta_description < 10 and  products_with_meta_description != 0 %}{{ '0' }}{% endif %}{{ products_with_meta_description }}</td>
+                  <td><a href="{{ product_action }}&filter_meta_description_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_products_without_meta_description }}</td>
+                  <td>{% if products_without_meta_description < 10 and products_without_meta_description != 0 %}{{ '0' }}{% endif %}{{ products_without_meta_description }}</td>
+                  <td><a href="{{ product_action }}&filter_meta_description_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_products_with_meta_keywords }}</td>
+                  <td>{% if products_with_meta_keywords < 10  and products_with_meta_keywords != 0 %}{{ '0' }}{% endif %}{{ products_with_meta_keywords }}</td>
+                  <td><a href="{{ product_action }}&filter_meta_keywords_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_products_without_meta_keywords }}</td>
+                  <td>{% if products_without_meta_keywords < 10 and  products_without_meta_keywords != 0 %}{{ '0' }}{% endif %}{{ products_without_meta_keywords }}</td>
+                  <td><a href="{{ product_action }}&filter_meta_keywords_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_products_with_image_custom_title }}</td>
+                  <td>{% if products_with_image_custom_title < 10 and products_with_image_custom_title != 0  %}{{ '0' }}{% endif %}{{ products_with_image_custom_title }}</td>
+                  <td><a href="{{ product_action }}&filter_image_custom_title_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_products_without_image_custom_title }}</td>
+                  <td>{% if products_without_image_custom_title < 10 and products_without_image_custom_title != 0  %}{{ '0' }}{% endif %}{{ products_without_image_custom_title }}</td>
+                  <td><a href="{{ product_action }}&filter_image_custom_title_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_products_with_image_custom_alt }}</td>
+                  <td>{% if products_with_image_custom_alt < 10 and products_with_image_custom_alt != 0 %}{{ '0' }}{% endif %}{{ products_with_image_custom_alt }}</td>
+                  <td><a href="{{ product_action }}&filter_image_custom_alt_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_products_without_image_custom_alt }}</td>
+                  <td>{% if products_without_image_custom_alt < 10 and products_without_image_custom_alt != 0 %}{{ '0' }}{% endif %}{{ products_without_image_custom_alt }}</td>
+                  <td><a href="{{ product_action }}&filter_image_custom_alt_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_products_with_custom_h1_tag }}</td>
+                  <td>{% if products_with_custom_h1_tag < 10  and products_with_custom_h1_tag != 0 %}{{ '0' }}{% endif %}{{ products_with_custom_h1_tag }}</td>
+                  <td><a href="{{ product_action }}&filter_custom_h1_tag_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_products_without_custom_h1_tag }}</td>
+                  <td>{% if products_without_custom_h1_tag < 10 and products_without_custom_h1_tag != 0 %}{{ '0' }}{% endif %}{{ products_without_custom_h1_tag }}</td>
+                  <td><a href="{{ product_action }}&filter_custom_h1_tag_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_products_with_custom_h2_tag }}</td>
+                  <td>{% if products_with_custom_h2_tag < 10 and products_with_custom_h2_tag != 0 %}{{ '0' }}{% endif %}{{ products_with_custom_h2_tag }}</td>
+                  <td><a href="{{ product_action }}&filter_custom_h2_tag_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_products_without_custom_h2_tag }}</td>
+                  <td>{% if products_without_custom_h2_tag < 10 and products_without_custom_h2_tag != 0 %}{{ '0' }}{% endif %}{{ products_without_custom_h2_tag }}</td>
+                  <td><a href="{{ product_action }}&filter_custom_h2_tag_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- categories report -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#parent" href="#categories" ><i class="fa fa-bar-chart-o fw"></i> {{ text_categories }} </a>
+          </h4>
+        </div>
+        <div id="categories" class="panel-collapse collapse">
+          <div class="panel-body">
+            <table class="table table-bordered table-responsive table-hover">
+              <thead>
+                <tr>
+                  <th>{{ text_description }}</th>
+                  <th width="5%">{{ text_value }}</th>
+                  <th width="5%">{{ text_action }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ text_total_categories }}</td>
+                  <td>{% if total_categories < 10 and total_categories != 0 %}{{ '0' }}{% endif %}{{ total_categories }}</td>
+                  <td><a href="{{ category_action }}" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                 <tr>
+                  <td>{{ text_category_active }}</td>
+                  <td>{% if active_categories < 10 and active_categories != 0 %}{{ '0' }}{% endif %}{{ active_categories }}</td>
+                  <td><a href="{{ category_action }}&filter_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr> 
+                  <td>{{ text_category_inactive }}</td>
+                  <td>{% if inactive_categories < 10 and inactive_categories != 0 %}{{ '0' }}{% endif %}{{ inactive_categories }}</td>
+                  <td><a href="{{ category_action }}&filter_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_categories_with_image }}</td>
+                  <td>{% if categories_with_image < 10 and categories_with_image != 0 %}{{ '0' }}{% endif %}{{ categories_with_image }}</td>
+                  <td><a href="{{ category_action }}&filter_image_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_categories_without_image }}</td>
+                  <td>{% if categories_without_image < 10 and categories_without_image != 0 %}{{ '0' }}{% endif %}{{ categories_without_image }}</td>
+                  <td><a href="{{ category_action }}&filter_image_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_category_seo }}</td>
+                  <td>{% if seo_url_categories < 10 and seo_url_categories != 0 %}{{ '0' }}{% endif %}{{ seo_url_categories }}</td>
+                  <td><a href="{{ category_action }}&filter_seo_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_category_no_seo }}</td>
+                  <td>{% if non_seo_url_categories < 10 and non_seo_url_categories != 0 %}{{ '0' }}{% endif %}{{ non_seo_url_categories }}</td>
+                  <td><a href="{{ category_action }}&filter_seo_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_categories_with_meta_title }}</td>
+                  <td>{% if categories_with_meta_title < 10 and categories_with_meta_title != 0 %}{{ '0' }}{% endif %}{{ categories_with_meta_title }}</td>
+                  <td><a href="{{ category_action }}&filter_meta_title_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_categories_without_meta_title }}</td>
+                  <td>{% if categories_without_meta_title < 10 and categories_without_meta_title != 0 %}{{ '0' }}{% endif %}{{ categories_without_meta_title }}</td>
+                  <td><a href="{{ category_action }}&filter_meta_title_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_categories_with_meta_keywords }}</td>
+                  <td>{% if categories_with_meta_keywords < 10 and categories_with_meta_keywords != 0 %}{{ '0' }}{% endif %}{{ categories_with_meta_keywords }}</td>
+                  <td><a href="{{ category_action }}&filter_meta_keywords_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_categories_without_meta_keywords }}</td>
+                  <td>{% if categories_without_meta_keywords < 10 and categories_without_meta_keywords != 0 %}{{ '0' }}{% endif %}{{ categories_without_meta_keywords }}</td>
+                  <td><a href="{{ category_action }}&filter_meta_keywords_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_categories_with_meta_description }}</td>
+                  <td>{% if categories_with_meta_description < 10 and categories_with_meta_description != 0 %}{{ '0' }}{% endif %}{{ categories_with_meta_description }}</td>
+                  <td><a href="{{ category_action }}&filter_meta_description_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                 <tr>  
+                  <td>{{ text_categories_without_meta_description }}</td>
+                  <td>{% if categories_without_meta_description < 10 and categories_without_meta_description != 0 %}{{ '0' }}{% endif %}{{ categories_without_meta_description }}</td>
+                  <td><a href="{{ category_action }}&filter_meta_description_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_categories_with_tags }}</td>
+                  <td>{% if categories_with_tags < 10 and categories_with_tags != 0 %}{{ '0' }}{% endif %}{{ categories_with_tags }}</td>
+                  <td><a href="{{ category_action }}&filter_tags_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                 <tr>  
+                  <td>{{ text_categories_without_tags }}</td>
+                  <td>{% if categories_without_tags < 10 and categories_without_tags != 0 %}{{ '0' }}{% endif %}{{ categories_without_tags }}</td>
+                  <td><a href="{{ category_action }}&filter_tags_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_categories_with_image_custom_title }}</td>
+                  <td>{% if categories_with_image_custom_title < 10 and categories_with_image_custom_title != 0 %}{{ '0' }}{% endif %}{{ categories_with_image_custom_title }}</td>
+                  <td><a href="{{ category_action }}&filter_image_custom_title_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                 <tr>  
+                  <td>{{ text_categories_without_image_custom_title }}</td>
+                  <td>{% if categories_without_image_custom_title < 10 and categories_without_image_custom_title != 0 %}{{ '0' }}{% endif %}{{ categories_without_image_custom_title }}</td>
+                  <td><a href="{{ category_action }}&filter_image_custom_title_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_categories_with_image_custom_alt }}</td>
+                  <td>{% if categories_with_image_custom_alt < 10 and categories_with_image_custom_alt != 0 %}{{ '0' }}{% endif %}{{ categories_with_image_custom_alt }}</td>
+                  <td><a href="{{ category_action }}&filter_image_custom_alt_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                 <tr>  
+                  <td>{{ text_categories_without_image_custom_alt }}</td>
+                  <td>{% if categories_without_image_custom_alt < 10 and categories_without_image_custom_alt != 0 %}{{ '0' }}{% endif %}{{ categories_without_image_custom_alt }}</td>
+                  <td><a href="{{ category_action }}&filter_image_custom_alt_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_categories_with_custom_h1_tag }}</td>
+                  <td>{% if categories_with_custom_h1_tag < 10 and categories_with_custom_h1_tag != 0  %}{{ '0' }}{% endif %}{{ categories_with_custom_h1_tag }}</td>
+                  <td><a href="{{ category_action }}&filter_custom_h1_tag_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_categories_without_custom_h1_tag }}</td>
+                  <td>{% if categories_without_custom_h1_tag < 10 and categories_without_custom_h1_tag != 0 %}{{ '0' }}{% endif %}{{ categories_without_custom_h1_tag }}</td>
+                  <td><a href="{{ category_action }}&filter_custom_h1_tag_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- information pages report -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#parent" href="#information"><i class="fa fa-bar-chart-o fw"></i> {{ text_information }} </a>
+          </h4>
+        </div>
+        <div id="information" class="panel-collapse collapse">
+          <div class="panel-body">
+            <table class="table table-bordered table-responsive table-hover">
+              <thead>
+                <tr>
+                  <th>{{ text_description }}</th>
+                  <th width="5%">{{ text_value }}</th>
+                  <th width="5%">{{ text_action }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ text_total_informations }}</td>
+                  <td>{% if total_informations < 10 and total_informations != 0 %}{{'0'}}{% endif %}{{ total_informations }}</td>
+                  <td><a href="{{ information_action }}" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_informations_active }}</td>
+                  <td>{% if active_informations < 10 and active_informations != 0 %}{{'0'}}{% endif %}{{ active_informations }}</td>
+                  <td><a href="{{ information_action }}&filter_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr> 
+                  <td>{{ text_informations_inactive }}</td>
+                  <td>{% if inactive_informations < 10 and inactive_informations != 0 %}{{'0'}}{% endif %}{{ inactive_informations }}</td>
+                  <td><a href="{{ information_action }}&filter_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_informations_seo }}</td>
+                  <td>{% if seo_url_information < 10 and seo_url_information != 0 %}{{'0'}}{% endif %}{{ seo_url_information }}</td>
+                  <td><a href="{{ information_action }}&filter_seo_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_informations_no_seo }}</td>
+                  <td>{% if non_seo_url_information < 10 and non_seo_url_information != 0 %}{{'0'}}{% endif %}{{ non_seo_url_information }}</td>
+                  <td><a href="{{ information_action }}&filter_seo_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_informations_with_meta_title }}</td>
+                  <td>{% if informations_with_meta_title < 10 and informations_with_meta_title != 0 %}{{'0'}}{% endif %}{{ informations_with_meta_title }}</td>
+                  <td><a href="{{ information_action }}&filter_meta_title_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_informations_without_meta_title }}</td>
+                  <td>{% if informations_without_meta_title < 10 and informations_without_meta_title != 0 %}{{'0'}}{% endif %}{{ informations_without_meta_title }}</td>
+                  <td><a href="{{ information_action }}&filter_meta_title_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_informations_with_meta_description }}</td>
+                  <td>{% if informations_with_meta_description < 10 and informations_with_meta_description != 0 %}{{'0'}}{% endif %}{{ informations_with_meta_description }}</td>
+                  <td><a href="{{ information_action }}&filter_meta_description_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                 <tr>  
+                  <td>{{ text_informations_without_meta_description }}</td>
+                  <td>{% if informations_without_meta_description < 10 and informations_without_meta_description != 0 %}{{'0'}}{% endif %}{{ informations_without_meta_description }}</td>
+                  <td><a href="{{ information_action }}&filter_meta_description_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_informations_with_meta_keywords }}</td>
+                  <td>{% if informations_with_meta_keywords < 10 and informations_with_meta_keywords != 0 %}{{'0'}}{% endif %}{{ informations_with_meta_keywords }}</td>
+                  <td><a href="{{ information_action }}&filter_meta_keywords_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_informations_without_meta_keywords }}</td>
+                  <td>{% if informations_without_meta_keywords < 10 and informations_without_meta_keywords != 0 %}{{'0'}}{% endif %}{{ informations_without_meta_keywords }}</td>
+                  <td><a href="{{ information_action }}&filter_meta_keywords_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_informations_with_custom_h1_tag }}</td>
+                  <td>{% if informations_with_custom_h1_tag < 10 and informations_with_custom_h1_tag != 0 %}{{ '0' }}{% endif %}{{ informations_with_custom_h1_tag }}</td>
+                  <td><a href="{{ information_action }}&filter_custom_h1_tag_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_informations_without_custom_h1_tag }}</td>
+                  <td>{% if informations_without_custom_h1_tag < 10 and informations_without_custom_h1_tag != 0  %}{{ '0' }}{% endif %}{{ informations_without_custom_h1_tag }}</td>
+                  <td><a href="{{ information_action }}&filter_custom_h1_tag_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- manufacturers report -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#parent" href="#manufacturer"><i class="fa fa-bar-chart-o fw"></i> {{ text_manufacturer }} </a>
+          </h4>
+        </div>
+        <div id="manufacturer" class="panel-collapse collapse">
+          <div class="panel-body">
+            <table class="table table-bordered table-responsive table-hover">
+              <thead>
+                <tr>
+                  <th>{{ text_description }}</th>
+                  <th width="5%">{{ text_value }}</th>
+                  <th width="5%">{{ text_action }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ text_total_manufacturers }}</td>
+                  <td>{% if  total_manufacturers < 10 and total_manufacturers != 0 %}{{ '0' }}{% endif %}{{ total_manufacturers }}</td>
+                  <td><a href="{{ manufacturer_action }}" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_manufacturer_seo }}</td>
+                  <td>{% if  seo_url_manufacturer < 10 and seo_url_manufacturer != 0 %}{{ '0' }}{% endif %}{{ seo_url_manufacturer }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_seo_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_manufacturer_no_seo }}</td>
+                  <td>{% if  non_seo_url_manufacturer < 10 and non_seo_url_manufacturer != 0 %}{{ '0' }}{% endif %}{{ non_seo_url_manufacturer }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_seo_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_manufacturers_with_image }}</td>
+                  <td>{% if manufacturers_with_image < 10 and manufacturers_with_image != 0 %}{{ '0' }}{% endif %}{{ manufacturers_with_image }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_image_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+
+                <tr>  
+                  <td>{{ text_manufacturers_without_image }}</td>
+                  <td>{% if manufacturers_without_image < 10 and manufacturers_without_image != 0 %}{{ '0' }}{% endif %}{{ manufacturers_without_image }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_image_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_manufacturers_with_meta_title }}</td>
+                  <td>{% if  manufacturers_with_meta_title < 10 and manufacturers_with_meta_title != 0 %}{{ '0' }}{% endif %}{{ manufacturers_with_meta_title }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_meta_title_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_manufacturers_without_meta_title }}</td>
+                  <td>{% if  manufacturers_without_meta_title < 10 and manufacturers_without_meta_title != 0 %}{{ '0' }}{% endif %}{{ manufacturers_without_meta_title }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_meta_title_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_manufacturers_with_meta_description }}</td>
+                  <td>{% if  manufacturers_with_meta_description < 10 and manufacturers_with_meta_description != 0 %}{{ '0' }}{% endif %}{{ manufacturers_with_meta_description }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_meta_description_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                 <tr>  
+                  <td>{{ text_manufacturers_without_meta_description }}</td>
+                  <td>{% if  manufacturers_without_meta_description < 10 and manufacturers_without_meta_description != 0 %}{{ '0' }}{% endif %}{{ manufacturers_without_meta_description }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_meta_description_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_manufacturers_with_meta_keywords }}</td>
+                  <td>{% if  manufacturers_with_meta_keywords < 10 and manufacturers_with_meta_keywords != 0 %}{{ '0' }}{% endif %}{{ manufacturers_with_meta_keywords }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_meta_keywords_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_manufacturers_without_meta_keywords }}</td>
+                  <td>{% if  manufacturers_without_meta_keywords < 10 and manufacturers_without_meta_keywords != 0 %}{{ '0' }}{% endif %}{{ manufacturers_without_meta_keywords }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_meta_keywords_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_manufacturers_with_tags }}</td>
+                  <td>{% if  manufacturers_with_tags < 10 and manufacturers_with_tags != 0 %}{{ '0' }}{% endif %}{{ manufacturers_with_tags }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_tags_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_manufacturers_without_tags }}</td>
+                  <td>{% if  manufacturers_without_tags < 10 and manufacturers_without_tags != 0 %}{{ '0' }}{% endif %}{{ manufacturers_without_tags }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_tags_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_manufacturers_with_image_custom_title }}</td>
+                  <td>{% if manufacturers_with_image_custom_title < 10 and manufacturers_with_image_custom_title != 0%}{{ '0' }}{% endif %}{{ manufacturers_with_image_custom_title }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_image_custom_title_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                 <tr>  
+                  <td>{{ text_manufacturers_without_image_custom_title }}</td>
+                  <td>{% if manufacturers_without_image_custom_title < 10 and manufacturers_without_image_custom_title != 0 %}{{ '0' }}{% endif %}{{ manufacturers_without_image_custom_title }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_image_custom_title_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_manufacturers_with_image_custom_alt }}</td>
+                  <td>{% if manufacturers_with_image_custom_alt < 10 and manufacturers_with_image_custom_alt != 0 %}{{ '0' }}{% endif %}{{ manufacturers_with_image_custom_alt }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_image_custom_alt_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                 <tr>  
+                  <td>{{ text_manufacturers_without_image_custom_alt }}</td>
+                  <td>{% if manufacturers_without_image_custom_alt < 10 and manufacturers_without_image_custom_alt != 0 %}{{ '0' }}{% endif %}{{ manufacturers_without_image_custom_alt }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_image_custom_alt_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_manufacturers_with_custom_h1_tag }}</td>
+                  <td>{% if manufacturers_with_custom_h1_tag < 10 and manufacturers_with_custom_h1_tag != 0 %}{{ '0' }}{% endif %}{{ manufacturers_with_custom_h1_tag }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_custom_h1_tag_status=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>  
+                  <td>{{ text_manufacturers_without_custom_h1_tag }}</td>
+                  <td>{% if manufacturers_without_custom_h1_tag < 10 and manufacturers_without_custom_h1_tag != 0 %}{{ '0' }}{% endif %}{{ manufacturers_without_custom_h1_tag }}</td>
+                  <td><a href="{{ manufacturer_action }}&filter_custom_h1_tag_status=0" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <!-- orders report -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#parent" href="#orders"><i class="fa fa-bar-chart-o fw"></i> {{ text_orders }} </a>
+          </h4>
+        </div>
+        <div id="orders" class="panel-collapse collapse">
+          <div class="panel-body">
+            <table class="table table-bordered table-responsive table-hover">
+              <thead>
+                <tr>
+                  <th>{{ text_description }}</th>
+                  <th width="5%">{{ text_value }}</th>
+                  <th width="5%">{{ text_action }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>{{ text_total_orders }}</td>
+                  <td>{% if total_orders < 10 and total_orders != 0 %}{{ '0' }}{% endif %}{{ total_orders }}</td>
+                  <td><a href="{{ order_action }}" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_pending_orders }}</td>
+                  <td>{% if pending_orders < 10 and pending_orders != 0 %}{{ '0' }}{% endif %}{{ pending_orders }}</td>
+                  <td><a href="{{ order_action }}&filter_order_status_id=1" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_processing_orders }}</td>
+                  <td>{% if processing_orders < 10 and processing_orders != 0 %}{{ '0' }}{% endif %}{{ processing_orders }}</td>
+                  <td><a href="{{ order_action }}&filter_order_status_id=2" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_shipped_orders }}</td>
+                  <td>{% if shipped_orders < 10 and shipped_orders != 0 %}{{ '0' }}{% endif %}{{ shipped_orders }}</td>
+                  <td><a href="{{ order_action }}&filter_order_status_id=3" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_complete_orders }}</td>
+                  <td>{% if complete_orders < 10 and complete_orders != 0 %}{{ '0' }}{% endif %}{{ complete_orders }}</td>
+                  <td><a href="{{ order_action }}&filter_order_status_id=5" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_canceled_orders }}</td>
+                  <td>{% if canceled_orders < 10 and canceled_orders != 0 %}{{ '0' }}{% endif %}{{ canceled_orders }}</td>
+                  <td><a href="{{ order_action }}&filter_order_status_id=7" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_denied_orders }}</td>
+                  <td>{% if denied_orders < 10 and denied_orders != 0 %}{{ '0' }}{% endif %}{{ denied_orders }}</td>
+                  <td><a href="{{ order_action }}&filter_order_status_id=8" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_failed_orders }}</td>
+                  <td>{% if failed_orders < 10 and failed_orders != 0 %}{{ '0' }}{% endif %}{{ failed_orders }}</td>
+                  <td><a href="{{ order_action }}&filter_order_status_id=10" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_refunded_orders }}</td>
+                  <td>{% if refunded_orders < 10 and refunded_orders != 0 %}{{ '0' }}{% endif %}{{ refunded_orders }}</td>
+                  <td><a href="{{ order_action }}&filter_order_status_id=11" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_reversed_orders }}</td>
+                  <td>{% if reversed_orders < 10 and reversed_orders != 0 %}{{ '0' }}{% endif %}{{ reversed_orders }}</td>
+                  <td><a href="{{ order_action }}&filter_order_status_id=12" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_chargeback_orders }}</td>
+                  <td>{% if charged_back_orders < 10 and charged_back_orders != 0 %}{{ '0' }}{% endif %}{{ charged_back_orders }}</td>
+                  <td><a href="{{ order_action }}&filter_order_status_id=13" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_expired_orders }}</td>
+                  <td>{% if expired_orders < 10 and expired_orders != 0 %}{{ '0' }}{% endif %}{{ expired_orders }}</td>
+                  <td><a href="{{ order_action }}&filter_order_status_id=14" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_processed_orders }}</td>
+                  <td>{% if processed_orders < 10 and processed_orders != 0 %}{{ '0' }}{% endif %}{{ processed_orders }}</td>
+                  <td><a href="{{ order_action }}&filter_order_status_id=15" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                 <tr>
+                  <td>{{ text_voided_orders }}</td>
+                  <td>{% if voided_orders < 10 and voided_orders != 0 %}{{ '0' }}{% endif %}{{ voided_orders }}</td>
+                  <td><a href="{{ order_action }}&filter_order_status_id=16" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+                <tr>
+                  <td>{{ text_canceled_reversal_orders }}</td>
+                  <td>{% if canceled_reversal_orders < 10 and canceled_reversal_orders != 0 %}{{ '0' }}{% endif %}{{ canceled_reversal_orders }}</td>
+                  <td><a href="{{ order_action }}&filter_order_status_id=9" class="btn btn-primary btn-sm"><i><span class="fa fa-eye"></span></i></a></td>
+                </tr>
+               </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div> 
+    
+  </div>
+
+  <!-- toggle panel arrows -->
+  <script type="text/javascript">
+   $(document).ready(function() {
+
+      $('.panel-collapse').on('show.bs.collapse', function () {
+        $(this).siblings('.panel-heading').addClass('active');
+      });
+
+      $('.panel-collapse').on('hide.bs.collapse', function () {
+        $(this).siblings('.panel-heading').removeClass('active');
+      });
+          
+   });
+
+  </script>
+
+  <style type="text/css">
+
+    .panel-title>a, .panel-title>a:active{
+      display:block;
+      text-decoration:none;
+    }
+    .panel-heading  a:before {
+       font-family: 'FontAwesome';
+       content: "\f107";
+       float: right;
+       font-weight: bold;
+       transition: all 0.5s;
+    }
+    .panel-heading.active a:before {
+      -webkit-transform: rotate(180deg);
+      -moz-transform: rotate(180deg);
+      transform: rotate(180deg);
+    } 
+  </style>
+
+</div>
+{{ footer }}
