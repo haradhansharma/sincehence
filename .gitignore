@@ -3,3 +3,4 @@ composer.json
 CHANGELOG.md
 CHANGELOG_AUTO.md
 build.xml
+php.ini
